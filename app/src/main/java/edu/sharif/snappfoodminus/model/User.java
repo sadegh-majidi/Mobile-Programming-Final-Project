@@ -12,7 +12,7 @@ public class User {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private Integer id;
+    private int id;
 
     @ColumnInfo(name = "username")
     @NonNull
