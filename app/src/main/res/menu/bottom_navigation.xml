@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Restaurants"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_order_history"
+        android:enabled="true"
+        android:icon="@drawable/ic_order_history"
+        android:title="My Orders"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_user_panel"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_panel"
+        android:title="My Account"
+        tools:ignore="HardcodedText" />
+
+</menu>
