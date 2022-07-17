@@ -23,9 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RestaurantsFragment()).commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            if (item.getItemId() == R.id.nav_home)
-                selectedFragment = new RestaurantsFragment();
+            Fragment selectedFragment = new RestaurantsFragment();
             if (item.getItemId() == R.id.nav_order_history)
                 selectedFragment = new OrderHistoryFragment();
             if (item.getItemId() == R.id.nav_user_panel)
