@@ -45,8 +45,6 @@ public class LoginFragment extends Fragment {
                 String errorMessage = getErrorMessage(username, password);
                 if (errorMessage != null) {
                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                }else {
-
                 }
             }
         });
