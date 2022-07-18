@@ -24,7 +24,8 @@ import edu.sharif.snappfoodminus.Constants;
                         onDelete = CASCADE)
         },
         indices = {
-                @Index(value = {"food_id"}, name = "review_food_id_idx")
+                @Index(value = {"food_id"}, name = "review_food_id_idx"),
+                @Index(value = {"user_id"}, name = "review_user_id_idx")
         }
 )
 public class Review {
