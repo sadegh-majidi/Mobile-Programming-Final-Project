@@ -28,7 +28,7 @@ import edu.sharif.snappfoodminus.utils.DateConverter;
                         onDelete = SET_NULL)
         },
         indices = {
-                @Index(value = {"restaurant_id"}, name = "restaurant_id_idx"),
+                @Index(value = {"restaurant_id"}, name = "restaurant_id_iddx"), // TODO: Notice "restaurant_id_idx" changed to "restaurant_id_iddx" to solve error
                 @Index(value = {"user_id"}, name = "user_id_idx"),
         }
 )
