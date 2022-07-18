@@ -1,23 +1,20 @@
 package edu.sharif.snappfoodminus.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,8 +22,10 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.Filter;
+import edu.sharif.snappfoodminus.model.Restaurant;
 
 public class RestaurantsFragment extends Fragment {
 
@@ -51,22 +50,14 @@ public class RestaurantsFragment extends Fragment {
         Button filterButton = view.findViewById(R.id.filter_button);
         filterButton.setOnClickListener(v -> {
             filters = getCurrentFilters();
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setTitle("Filter Restaurants");
-            alertDialog.setView(getFiltersView(getActivity()));
-            alertDialog.setMessage("Select your desired categories");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
-                    (dialog, which) -> {
-                        // TODO: Filter restaurants
-                        // controller.getFilteredRestaurants(filters);
-                        updateCurrentFilters();
-                        dialog.dismiss();
-                    });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
+            getFiltersDialog().show();
         });
 
+        ArrayList<Restaurant> restaurants = controller.getFilteredRestaurants(filters);
+        RecyclerView rvRestaurants = view.findViewById(R.id.restaurants_rv);
+        RestaurantsAdapter adapter = new RestaurantsAdapter(restaurants);
+        rvRestaurants.setAdapter(adapter);
+        rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private ArrayList<Filter> initFilters() {
@@ -108,5 +99,22 @@ public class RestaurantsFragment extends Fragment {
             });
         }
         return layout;
+    }
+
+    private AlertDialog getFiltersDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Filter Restaurants");
+        alertDialog.setView(getFiltersView(getActivity()));
+        alertDialog.setMessage("Select your desired categories");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
+                (dialog, which) -> {
+                    // TODO: Filter restaurants
+                    // controller.getFilteredRestaurants(filters);
+                    updateCurrentFilters();
+                    dialog.dismiss();
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                (dialog, which) -> dialog.dismiss());
+        return alertDialog;
     }
 }
