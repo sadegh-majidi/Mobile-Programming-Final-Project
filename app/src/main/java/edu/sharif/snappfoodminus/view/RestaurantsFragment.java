@@ -35,6 +35,7 @@ public class RestaurantsFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
     private ArrayList<Filter> filters;
+    private ArrayList<Restaurant> restaurants;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class RestaurantsFragment extends Fragment {
             getFiltersDialog().show();
         });
 
-        ArrayList<Restaurant> restaurants = controller.getFilteredRestaurants(filters);
+        restaurants = controller.getFilteredRestaurants(filters);
         RecyclerView rvRestaurants = view.findViewById(R.id.restaurants_rv);
         RestaurantsAdapter adapter = new RestaurantsAdapter(restaurants);
         rvRestaurants.setAdapter(adapter);
