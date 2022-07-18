@@ -1,6 +1,7 @@
 package edu.sharif.snappfoodminus.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -17,6 +18,9 @@ public interface UserDao {
 
     @Update
     public void updateUsers(User... users);
+
+    @Delete
+    void delete(User user);
 
 
     @Query("SELECT * FROM user")
