@@ -34,6 +34,10 @@ public class RestaurantsController {
     public ArrayList<Restaurant> getFilteredRestaurants(ArrayList<Filter> filters) {
         // TODO: get all filtered restaurants
         // For now:
-        return new ArrayList<>();
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            restaurants.add(new Restaurant("Restaurant" + String.valueOf(i), 1));
+        }
+        return restaurants;
     }
 }
