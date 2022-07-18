@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_home" />
+        app:srcCompat="@drawable/ic_home"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -31,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Restaurant Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -42,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Categories"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -50,7 +53,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -60,7 +63,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Shipping Cost"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
             <Space
                 android:layout_width="10dp"
@@ -74,7 +78,8 @@
                 android:gravity="center"
                 android:text="Free"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <Space
                 android:layout_width="0dp"
@@ -86,7 +91,8 @@
                 android:layout_width="20dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_star" />
+                app:srcCompat="@drawable/ic_star"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/rate_textview"
@@ -95,12 +101,10 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="NEW"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_height="20dp"
-                app:srcCompat="@drawable/ic_star" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
