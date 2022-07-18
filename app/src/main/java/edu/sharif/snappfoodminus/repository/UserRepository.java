@@ -24,21 +24,29 @@ public class UserRepository {
         return this.allUsers;
     }
 
+    public LiveData<User> getUserById(int id) {
+        return this.userDao.getUserById(id);
+    }
+
+    public LiveData<User> getUserByUsername(String username) {
+        return this.userDao.getUserByUsername(username);
+    }
+
     public void insertUser(User user) {
         DataBase.databaseWriteExecutor.execute(() -> {
-            userDao.insertUser(user);
+            this.userDao.insertUser(user);
         });
     }
 
     public void updateUser(User user) {
         DataBase.databaseWriteExecutor.execute(() -> {
-            userDao.updateUser(user);
+            this.userDao.updateUser(user);
         });
     }
 
     public void deleteUser(User user) {
         DataBase.databaseWriteExecutor.execute(() -> {
-            userDao.deleteUser(user);
+            this.userDao.deleteUser(user);
         });
     }
 

@@ -18,6 +18,12 @@ public interface UserDao {
     @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " ORDER BY id ASC")
     LiveData<List<User>> getAllUsers();
 
+    @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " WHERE id=:id")
+    LiveData<User> getUserById(int id);
+
+    @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " WHERE username=:username")
+    LiveData<User> getUserByUsername(String username);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertUser(User user);
 

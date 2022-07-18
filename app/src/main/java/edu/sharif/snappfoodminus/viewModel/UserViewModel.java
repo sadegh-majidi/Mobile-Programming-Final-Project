@@ -21,6 +21,14 @@ public class UserViewModel extends AndroidViewModel {
         this.allUsers = this.userRepository.getAllUsers();
     }
 
+    public LiveData<User> getUserById(int id) {
+        return this.userRepository.getUserById(id);
+    }
+
+    public LiveData<User> getUserByUsername(String username) {
+        return this.userRepository.getUserByUsername(username);
+    }
+
     public void insertUser(User user) {
         this.userRepository.insertUser(user);
     }
