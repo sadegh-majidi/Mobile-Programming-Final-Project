@@ -71,9 +71,10 @@ public abstract class DataBase extends RoomDatabase {
 
     private static class PopulateDBTask extends AsyncTask<Void, Void, Void> {
         private final UserDao userDao;
-
+        private final CategoryDao categoryDao;
         private PopulateDBTask(DataBase database) {
             this.userDao = database.userDao();
+            this.categoryDao = database.categoryDao();
         }
 
         @Override
