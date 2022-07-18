@@ -1,7 +1,5 @@
 package edu.sharif.snappfoodminus.controller;
 
-import android.util.Pair;
-
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.model.Filter;
