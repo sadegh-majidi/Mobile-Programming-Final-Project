@@ -25,8 +25,8 @@ import edu.sharif.snappfoodminus.Constants;
                         onDelete = SET_NULL)
         },
         indices = {
-                @Index(value = {"restaurant_id"}, name = "restaurant_id_idx"),
-                @Index(value = {"category_id"}, name = "category_id_idx"),
+                @Index(value = {"restaurant_id"}, name = "food_restaurant_id_idx"),
+                @Index(value = {"category_id"}, name = "food_category_id_idx"),
         }
 )
 public class Food {

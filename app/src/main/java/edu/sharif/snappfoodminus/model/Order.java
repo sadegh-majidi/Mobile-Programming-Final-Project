@@ -28,8 +28,8 @@ import edu.sharif.snappfoodminus.utils.DateConverter;
                         onDelete = SET_NULL)
         },
         indices = {
-                @Index(value = {"restaurant_id"}, name = "restaurant_id_idx"),
-                @Index(value = {"user_id"}, name = "user_id_idx"),
+                @Index(value = {"restaurant_id"}, name = "order_restaurant_id_idx"),
+                @Index(value = {"user_id"}, name = "order_user_id_idx"),
         }
 )
 @TypeConverters(DateConverter.class)
