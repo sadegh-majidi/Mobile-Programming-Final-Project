@@ -1,9 +1,11 @@
 package edu.sharif.snappfoodminus.view;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +20,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
+import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Filter;
 
 public class RestaurantsFragment extends Fragment {
@@ -34,6 +39,9 @@ public class RestaurantsFragment extends Fragment {
 
     private static final String Shared_KEY = "edu.sharif.snappfoodminus";
     private SharedPreferences sharedPreferences;
+
+    ProgressDialog dialog;
+
 
     private ArrayList<Filter> filters;
 
@@ -46,7 +54,10 @@ public class RestaurantsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         controller = RestaurantsController.getInstance();
         sharedPreferences = getActivity().getSharedPreferences(Shared_KEY, Context.MODE_PRIVATE);
-        filters = initFilters();
+
+        dialog = new ProgressDialog(getContext());
+
+        initFilters();
 
         Button filterButton = view.findViewById(R.id.filter_button);
         filterButton.setOnClickListener(v -> {
@@ -69,15 +80,26 @@ public class RestaurantsFragment extends Fragment {
 
     }
 
-    private ArrayList<Filter> initFilters() {
-        String[] categories = controller.getAllCategories();
-        ArrayList<Filter> filters = new ArrayList<>();
-        for (String category: categories)
-            filters.add(new Filter(category, true));
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Filters", new Gson().toJson(filters));
-        editor.apply();
-        return filters;
+    private void initFilters() {
+
+        LiveData<List<Category>> liveCategories = controller.getAllCategories(getActivity().getApplication());
+
+        List<String> categories = new ArrayList<>();
+
+        liveCategories.observe(getViewLifecycleOwner(), categories1 -> {
+            Log.d("arya","second");
+            for (Category category : categories1){
+                categories.add(category.getName());
+            }
+            ArrayList<Filter> filters = new ArrayList<>();
+            for (String category: categories)
+                filters.add(new Filter(category, true));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Filters", new Gson().toJson(filters));
+            editor.apply();
+            Log.d("arya","tamom shod");
+            dialog.dismiss();
+        });
     }
 
     private ArrayList<Filter> getCurrentFilters() {

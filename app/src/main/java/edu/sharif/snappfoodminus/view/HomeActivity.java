@@ -4,16 +4,27 @@ import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Role;
+import edu.sharif.snappfoodminus.model.User;
+import edu.sharif.snappfoodminus.repository.CategoryRepository;
+import edu.sharif.snappfoodminus.repository.UserRepository;
 
 public class HomeActivity extends AppCompatActivity {
 

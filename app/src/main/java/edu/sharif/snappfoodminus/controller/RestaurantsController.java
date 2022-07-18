@@ -1,13 +1,22 @@
 package edu.sharif.snappfoodminus.controller;
 
-import java.util.ArrayList;
+import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Filter;
 import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.repository.CategoryRepository;
 
 public class RestaurantsController {
 
     private static RestaurantsController instance;
+    private static CategoryRepository categoryRepository;
+
 
     public static RestaurantsController getInstance() {
         if (instance == null)
@@ -15,10 +24,11 @@ public class RestaurantsController {
         return instance;
     }
 
-    public String[] getAllCategories() {
-        // TODO: get all categories names from database
+    public LiveData<List<Category>> getAllCategories(Application application) {
+        categoryRepository = new CategoryRepository(application);
+        return categoryRepository.getAllCategories();
         // For now:
-        return new String[]{"kebab", "fastfood", "desert", "drink", "appetizer", "sauce"};
+//        return new String[]{"kebab", "fastfood", "desert", "drink", "appetizer", "sauce"};
     }
 
     public ArrayList<Restaurant> getFilteredRestaurants(ArrayList<Filter> filters) {
