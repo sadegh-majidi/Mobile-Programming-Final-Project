@@ -7,16 +7,23 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import edu.sharif.snappfoodminus.Constants;
 
 @Entity(
         tableName = Constants.RESTAURANT_TABLE_NAME,
-        foreignKeys = {@ForeignKey(entity = User.class,
-                parentColumns = "id",
-                childColumns = "owner_id",
-                onDelete = SET_NULL)}
+        foreignKeys = {
+                @ForeignKey(entity = User.class,
+                        parentColumns = "id",
+                        childColumns = "owner_id",
+                        onDelete = SET_NULL
+                )
+        },
+        indices = {
+                @Index(value = {"owner_id"}, name = "restaurant_owner_id_idx")
+        }
 )
 public class Restaurant {
 

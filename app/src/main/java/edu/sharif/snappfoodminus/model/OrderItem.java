@@ -26,6 +26,7 @@ import edu.sharif.snappfoodminus.Constants;
         },
         indices = {
                 @Index(value = {"order_id"}, name = "order_item_order_id_idx"),
+                @Index(value = {"food_id"}, name = "order_item_food_id_idx")
         }
 )
 public class OrderItem {
