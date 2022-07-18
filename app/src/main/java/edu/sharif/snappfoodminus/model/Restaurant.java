@@ -36,6 +36,14 @@ public class Restaurant {
     private String name;
 
 
+    @ColumnInfo(name = "shipping_cost")
+    private Long shippingCost;
+
+
+    @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
+
+
     @ColumnInfo(name = "owner_id")
     private int ownerId;
 
@@ -64,8 +72,26 @@ public class Restaurant {
         this.ownerId = ownerId;
     }
 
-    public Restaurant(@NonNull String name, int ownerId) {
+    public Long getShippingCost() {
+        return shippingCost;
+    }
+
+    public void setShippingCost(Long shippingCost) {
+        this.shippingCost = shippingCost;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Restaurant(@NonNull String name, int ownerId, Long shippingCost, byte[] image) {
         this.name = name;
         this.ownerId = ownerId;
+        this.shippingCost = shippingCost;
+        this.image = image;
     }
 }
