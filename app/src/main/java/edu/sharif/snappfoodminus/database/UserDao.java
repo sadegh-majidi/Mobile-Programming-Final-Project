@@ -1,38 +1,38 @@
 package edu.sharif.snappfoodminus.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
 
+import edu.sharif.snappfoodminus.Constants;
 import edu.sharif.snappfoodminus.model.User;
 
 @Dao
 public interface UserDao {
+    @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " ORDER BY id ASC")
+    LiveData<List<User>> getAllUsers();
 
-    @Insert
-    void insert(User user);
+    @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " WHERE id=:id")
+    LiveData<User> getUserById(int id);
+
+    @Query("SELECT * FROM " + Constants.USER_TABLE_NAME + " WHERE username=:username")
+    LiveData<User> getUserByUsername(String username);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertUser(User user);
 
     @Update
-    public void updateUsers(User... users);
+    void updateUser(User user);
 
     @Delete
-    void delete(User user);
+    void deleteUser(User user);
 
-
-    @Query("SELECT * FROM user")
-    List<User> getAllUsers();
-
-    @Query("SELECT * FROM user WHERE username LIKE :username")
-    public User findUserWithUsername(String username);
-
-    @Query("SELECT * FROM user WHERE name LIKE :name")
-    public List<User> findUserWithName(String name);
-
-
-
-
+    @Query("DELETE FROM " + Constants.USER_TABLE_NAME)
+    void deleteAllUsers();
 }

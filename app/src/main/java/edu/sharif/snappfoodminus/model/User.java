@@ -3,11 +3,17 @@ package edu.sharif.snappfoodminus.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import edu.sharif.snappfoodminus.Constants;
 
-@Entity(tableName = Constants.USER_TABLE_NAME)
+@Entity(
+        tableName = Constants.USER_TABLE_NAME,
+        indices = {
+                @Index(value = {"username"}, name = "user_unique_username_idx", unique = true)
+        }
+)
 public class User {
 
     @PrimaryKey(autoGenerate = true)

@@ -24,7 +24,7 @@ import edu.sharif.snappfoodminus.Constants;
                         onDelete = CASCADE)
         },
         indices = {
-                @Index(value = {"user_id", "food_id"}, name = "unique_user_food_idx", unique = true)
+                @Index(value = {"user_id", "food_id"}, name = "rating_unique_user_food_idx", unique = true)
         }
 )
 public class Rating {
