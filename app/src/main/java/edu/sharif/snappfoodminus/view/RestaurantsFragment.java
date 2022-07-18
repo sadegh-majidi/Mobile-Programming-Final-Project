@@ -70,7 +70,7 @@ public class RestaurantsFragment extends Fragment {
     }
 
     private ArrayList<Filter> initFilters() {
-        String[] categories = controller.getAllCategories(getActivity());
+        String[] categories = controller.getAllCategories();
         ArrayList<Filter> filters = new ArrayList<>();
         for (String category: categories)
             filters.add(new Filter(category, true));
