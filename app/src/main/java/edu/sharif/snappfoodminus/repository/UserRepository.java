@@ -14,7 +14,7 @@ public class UserRepository {
     private final UserDao userDao;
     private final LiveData<List<User>> allUsers;
 
-    public UserRepository (Application application) {
+    public UserRepository(Application application) {
         DataBase database = DataBase.getInstance(application);
         this.userDao = database.userDao();
         this.allUsers = userDao.getAllUsers();
@@ -33,21 +33,15 @@ public class UserRepository {
     }
 
     public void insertUser(User user) {
-        DataBase.databaseWriteExecutor.execute(() -> {
-            this.userDao.insertUser(user);
-        });
+        DataBase.databaseWriteExecutor.execute(() -> this.userDao.insertUser(user));
     }
 
     public void updateUser(User user) {
-        DataBase.databaseWriteExecutor.execute(() -> {
-            this.userDao.updateUser(user);
-        });
+        DataBase.databaseWriteExecutor.execute(() -> this.userDao.updateUser(user));
     }
 
     public void deleteUser(User user) {
-        DataBase.databaseWriteExecutor.execute(() -> {
-            this.userDao.deleteUser(user);
-        });
+        DataBase.databaseWriteExecutor.execute(() -> this.userDao.deleteUser(user));
     }
 
     public void deleteAllUsers() {
