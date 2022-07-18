@@ -1,13 +1,15 @@
 package edu.sharif.snappfoodminus.database;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Food;
@@ -16,6 +18,7 @@ import edu.sharif.snappfoodminus.model.OrderItem;
 import edu.sharif.snappfoodminus.model.Rating;
 import edu.sharif.snappfoodminus.model.Restaurant;
 import edu.sharif.snappfoodminus.model.Review;
+import edu.sharif.snappfoodminus.model.Role;
 import edu.sharif.snappfoodminus.model.User;
 
 
@@ -34,10 +37,13 @@ public abstract class DataBase extends RoomDatabase {
 
     public static DataBase database;
 
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
     public static synchronized DataBase getInstance(Context context) {
         if (database == null) {
             database = Room.databaseBuilder(
-                    context,
+                    context.getApplicationContext(),
                     DataBase.class,
                     "sf_minus_database"
             ).addCallback(callback).fallbackToDestructiveMigration().build();
@@ -65,22 +71,12 @@ public abstract class DataBase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDBTask(database).execute();
+            databaseWriteExecutor.execute(() -> {
+                UserDao userDao = database.userDao();
+                userDao.deleteAllUsers(); //TODO: check that this task is not running every time.
+                userDao.insertUser(new User("admin", "admin", Role.ADMIN, "Default System Admin"));
+            });
         }
     };
 
-    private static class PopulateDBTask extends AsyncTask<Void, Void, Void> {
-        private final UserDao userDao;
-
-        private PopulateDBTask(DataBase database) {
-            this.userDao = database.userDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            // TODO: insert admin here
-            return null;
-        }
-
-    }
 }
