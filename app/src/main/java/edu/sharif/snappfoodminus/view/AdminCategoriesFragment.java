@@ -84,8 +84,8 @@ public class AdminCategoriesFragment extends Fragment {
                     else {
                         Category newCategory = new Category(name);
                         Category.addCategory(getContext(), newCategory);
-                        categories.add(0, newCategory);
-                        adapter.notifyItemInserted(0);
+                        categories.add(newCategory);
+                        adapter.notifyItemInserted(categories.size());
                     }
                     dialog.dismiss();
                 });

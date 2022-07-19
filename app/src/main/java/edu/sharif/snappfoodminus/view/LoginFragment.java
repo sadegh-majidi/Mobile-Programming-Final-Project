@@ -20,6 +20,7 @@ import android.widget.Toast;
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.UserController;
 import edu.sharif.snappfoodminus.temp.LoginRepository;
+import edu.sharif.snappfoodminus.temp.Role;
 import edu.sharif.snappfoodminus.temp.User;
 
 public class LoginFragment extends Fragment {
@@ -93,7 +94,11 @@ public class LoginFragment extends Fragment {
                 } else {
                     // TODO: Login for owner or admin
                     LoginRepository.username = user.username;
-                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                    User loggedInUser = LoginRepository.getLoggedInUser(getContext());
+                    if (loggedInUser.role == Role.ADMIN)
+                        startActivity(new Intent(getActivity(), AdminActivity.class));
+                    else
+                        startActivity(new Intent(getActivity(), HomeActivity.class));
                 }
             }
         });
