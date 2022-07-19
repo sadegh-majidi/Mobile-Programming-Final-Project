@@ -45,7 +45,7 @@ public class OwnerActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserPanelFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.nav_user_panel);
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AdminCategoriesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new OwnerRestaurantFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
         sharedPreferences.edit().putBoolean("DarkModeJustChanged", false).apply();
