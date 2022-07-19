@@ -93,7 +93,7 @@ public class RestaurantsFragment extends Fragment {
     }
 
     private View getFiltersView(Context context) {
-        GridLayout layout = new GridLayout(getContext());
+        GridLayout layout = new GridLayout(context);
         layout.setColumnCount(3);
         layout.setPadding(50, 0, 50, 0);
         ArrayList<Filter> filters = getCurrentFilters();

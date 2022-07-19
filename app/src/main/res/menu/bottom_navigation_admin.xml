@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_categories"
+        android:enabled="true"
+        android:icon="@drawable/ic_category"
+        android:title="Categories"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_requests"
+        android:enabled="true"
+        android:icon="@drawable/ic_request"
+        android:title="Requests"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_user_panel"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_panel"
+        android:title="My Account"
+        tools:ignore="HardcodedText" />
+
+</menu>

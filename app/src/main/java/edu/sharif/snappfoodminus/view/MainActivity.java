@@ -17,7 +17,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initAdmin();
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, new LoginFragment()).commit();
+    }
+
+    private void initAdmin() {
+        User admin = User.getUserByUsername(this, "admin");
+        if (admin == null) {
+            admin = new User("admin", "admin", "admin", Role.ADMIN);
+            User.addUser(this, admin);
+        }
     }
 }

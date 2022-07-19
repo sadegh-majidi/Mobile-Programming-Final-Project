@@ -55,4 +55,12 @@ public class Category {
         db.close();
         return categories;
     }
+
+    public static Category getCategoryByName(Context context, String name) {
+        ArrayList<Category> categories = Category.getAllCategories(context);
+        for (Category category: categories)
+            if (category.name.equals(name))
+                return category;
+        return null;
+    }
 }
