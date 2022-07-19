@@ -10,4 +10,9 @@ public class OwnerRestaurantController {
         this.context = context;
     }
 
+    public String getNameError(String name) {
+        if (name.isEmpty())
+            return "Name field can not be blank";
+        return null;
+    }
 }
