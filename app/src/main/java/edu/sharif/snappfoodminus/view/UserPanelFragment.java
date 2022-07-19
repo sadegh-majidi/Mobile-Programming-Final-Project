@@ -3,6 +3,7 @@ package edu.sharif.snappfoodminus.view;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,8 @@ public class UserPanelFragment extends Fragment {
         EditText confirmPasswordEditText = view.findViewById(R.id.userPanelNewPasswordConfirm);
         EditText currentPasswordEditText = view.findViewById(R.id.userPanelCurrentPassword);
         Button confirmChangesButton = view.findViewById(R.id.userPanelChangeInfoButton);
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        Switch darkModeSwitch = view.findViewById(R.id.darkModeSwitch);
 
         User loggedInUser = LoginRepository.getLoggedInUser(getContext());
         nameTextView.setText(loggedInUser.name);
@@ -87,26 +91,17 @@ public class UserPanelFragment extends Fragment {
             currentPasswordEditText.setText("");
         });
 
-
-
-//
-//        boolean isNight = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES;
-//        darkMode.setChecked(isNight);
-//
-//        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b) {
-//                    saveDarkModeState(true);
-//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
-//                }else {
-//                    saveDarkModeState(false);
-//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
-//            }
-//            }
-//        });
-
-
+        boolean isNight = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES;
+        darkModeSwitch.setChecked(isNight);
+        darkModeSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                saveDarkModeState(true);
+                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+            } else {
+                saveDarkModeState(false);
+                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
+            }
+        });
     }
 
     private void saveDarkModeState(boolean state) {
@@ -115,5 +110,4 @@ public class UserPanelFragment extends Fragment {
         editor.putBoolean("DarkModeJustChanged", true);
         editor.apply();
     }
-
 }
