@@ -1,5 +1,6 @@
 package edu.sharif.snappfoodminus.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -61,6 +62,11 @@ public class OwnerRestaurantFragment extends Fragment {
 
         editShippingCostImageView.setOnClickListener(v -> {
             showEditShippingCostDialog(restaurant);
+        });
+
+        TextView textView = view.findViewById(R.id.rate);
+        textView.setOnClickListener(v -> {
+            showItemDialog("Add");
         });
     }
 
@@ -135,6 +141,20 @@ public class OwnerRestaurantFragment extends Fragment {
                 });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                 (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
+    }
+
+    private void showItemDialog(String mode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final View view = getLayoutInflater().inflate(R.layout.layout_add_update_food, null);
+        builder.setTitle("Request " + mode + " Item");
+        builder.setView(view);
+        builder.setPositiveButton("Request", (dialog, which) -> {
+            dialog.dismiss();
+            // TODO: Handle request
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 }
