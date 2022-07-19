@@ -52,7 +52,7 @@ public class AdminCategoriesFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.categories_rv);
         categories = Category.getAllCategories(getContext());
-        adapter = new AdminCategoriesAdapter(categories);
+        adapter = new AdminCategoriesAdapter(categories,getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

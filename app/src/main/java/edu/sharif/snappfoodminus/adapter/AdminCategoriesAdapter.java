@@ -22,16 +22,17 @@ import edu.sharif.snappfoodminus.temp.Category;
 public class AdminCategoriesAdapter extends RecyclerView.Adapter<AdminCategoriesAdapter.ViewHolder> {
 
     private ArrayList<Category> mCategories;
+    private Context mContext;
 
-    public AdminCategoriesAdapter(ArrayList<Category> categories) {
+    public AdminCategoriesAdapter(ArrayList<Category> categories, Context context) {
         mCategories = categories;
+        mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.layout_category_item, parent, false);
         return new ViewHolder(view);
     }
