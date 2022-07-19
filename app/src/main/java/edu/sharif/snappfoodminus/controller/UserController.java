@@ -1,11 +1,17 @@
 package edu.sharif.snappfoodminus.controller;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import edu.sharif.snappfoodminus.temp.LoginRepository;
 import edu.sharif.snappfoodminus.temp.User;
+import edu.sharif.snappfoodminus.view.MainActivity;
 
 public class UserController {
 
@@ -53,5 +59,13 @@ public class UserController {
                 return "Choose another username";
         }
         return null;
+    }
+
+    public void logout() {
+        LoginRepository.username = null;
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|FLAG_ACTIVITY_CLEAR_TOP);
+        Toast.makeText(context,"Successfully signed out" , Toast.LENGTH_SHORT).show();
+        context.startActivity(intent);
     }
 }

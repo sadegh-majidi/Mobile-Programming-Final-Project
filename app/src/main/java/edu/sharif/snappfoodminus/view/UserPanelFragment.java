@@ -11,20 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.controller.LogoutController;
 import edu.sharif.snappfoodminus.controller.UserController;
 import edu.sharif.snappfoodminus.temp.LoginRepository;
 import edu.sharif.snappfoodminus.temp.User;
@@ -55,7 +54,7 @@ public class UserPanelFragment extends Fragment {
         EditText confirmPasswordEditText = view.findViewById(R.id.userPanelNewPasswordConfirm);
         EditText currentPasswordEditText = view.findViewById(R.id.userPanelCurrentPassword);
         Button confirmChangesButton = view.findViewById(R.id.userPanelChangeInfoButton);
-        Button logoutBtn = view.findViewById(R.id.logoutBtn);
+        ImageView logoutImageview = view.findViewById(R.id.logoutBtn);
 
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch darkModeSwitch = view.findViewById(R.id.darkModeSwitch);
@@ -94,12 +93,14 @@ public class UserPanelFragment extends Fragment {
             currentPasswordEditText.setText("");
         });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LogoutController controller = LogoutController.getInstance();
-                controller.logout(getContext());
-            }
+        logoutImageview.setOnClickListener(view1 -> {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Sign Out")
+                    .setMessage("Are you sure to sign out?")
+                    .setPositiveButton("Sign Out", (dialog, whichButton) -> {
+                        controller.logout();
+                    })
+                    .setNegativeButton("Cancel", null).show();
         });
 
         boolean isNight = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES;
