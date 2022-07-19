@@ -94,7 +94,7 @@ public class UserPanelFragment extends Fragment {
             currentPasswordEditText.setText("");
         });
 
-        logoutImageview.setColorFilter(ActivityCompat.getColor(getContext(), android.R.color.holo_green_light));
+//        logoutImageview.setColorFilter(ActivityCompat.getColor(getContext(), android.R.color.holo_green_light));
 
 
         logoutImageview.setOnClickListener(view1 -> {
