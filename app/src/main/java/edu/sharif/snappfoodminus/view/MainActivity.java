@@ -7,6 +7,8 @@ import android.util.Log;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.repository.UserRepository;
+import edu.sharif.snappfoodminus.temp.Role;
+import edu.sharif.snappfoodminus.temp.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new RegisterFragment()).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new LoginFragment()).commit();
     }
 }

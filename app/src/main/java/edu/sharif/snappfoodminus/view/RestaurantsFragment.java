@@ -71,7 +71,7 @@ public class RestaurantsFragment extends Fragment {
     }
 
     private ArrayList<Filter> initFilters() {
-        ArrayList<Category> categories = controller.getAllCategories(getContext());
+        ArrayList<Category> categories = Category.getAllCategories(getContext());
         ArrayList<Filter> filters = new ArrayList<>();
         for (Category category: categories)
             filters.add(new Filter(category.name, true));
@@ -113,7 +113,6 @@ public class RestaurantsFragment extends Fragment {
 
     private AlertDialog getFiltersDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        ArrayList<Category> categories = controller.getAllCategories(getContext());
         alertDialog.setTitle("Filter Restaurants");
         alertDialog.setView(getFiltersView(getActivity()));
         alertDialog.setMessage("Select your desired categories");

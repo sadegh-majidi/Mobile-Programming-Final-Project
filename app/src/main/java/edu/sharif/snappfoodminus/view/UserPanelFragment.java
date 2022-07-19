@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.controller.LoginController;
 import edu.sharif.snappfoodminus.controller.UserPanelController;
 
 public class UserPanelFragment extends Fragment {

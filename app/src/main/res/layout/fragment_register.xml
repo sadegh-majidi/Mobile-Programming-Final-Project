@@ -41,19 +41,10 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="First name"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/registerLastnameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Last name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
     </LinearLayout>
 
     <LinearLayout
