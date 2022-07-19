@@ -20,6 +20,17 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CATEGORY_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + CATEGORY_TABLE_NAME + ";";
 
+    public static final String RESTAURANT_TABLE_NAME = "restaurant";
+    public static final String RESTAURANT_NAME = "name";
+    public static final String RESTAURANT_SHIPPING_COST = "shippingcost";
+    private static final String RESTAURANT_CREATE_TABLE_QUERY =
+            "CRATE TABLE " + RESTAURANT_TABLE_NAME + " (" +
+                    RESTAURANT_NAME + " TEXT PRIMARY KEY, " +
+                    RESTAURANT_SHIPPING_COST + "  Integer);";
+    private static final String RESTAURANT_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + RESTAURANT_TABLE_NAME + ";";
+
+
     public static final String USER_TABLE_NAME = "user";
     public static final String USER_USERNAME = "username";
     public static final String USER_PASSWORD = "password";
