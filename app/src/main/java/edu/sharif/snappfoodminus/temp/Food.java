@@ -76,27 +76,27 @@ public class Food {
     }
 
     public static Food getFoodByName(Context context, String name) {
-        ArrayList<Food> restaurants = Food.getAllFoods(context);
-        for (Food food : restaurants)
+        ArrayList<Food> foods = Food.getAllFoods(context);
+        for (Food food : foods)
             if (food.name.equals(name))
                 return food;
         return null;
     }
 
-    public static ArrayList<Food> getFoodsByCategory(Context context, String name) {
+    public static ArrayList<Food> getFoodsByCategory(Context context, String categoryName) {
         ArrayList<Food> foods = Food.getAllFoods(context);
         ArrayList<Food> result = new ArrayList<>();
         for (Food food : foods)
-            if (food.category.equals(name))
+            if (food.category.equals(categoryName))
                 result.add(food);
         return result;
     }
 
-    public static ArrayList<Food> getFoodsByRestaurant(Context context, String name) {
+    public static ArrayList<Food> getFoodsByRestaurant(Context context, String restaurantName) {
         ArrayList<Food> foods = Food.getAllFoods(context);
         ArrayList<Food> result = new ArrayList<>();
         for (Food food : foods)
-            if (food.restaurant.equals(name))
+            if (food.restaurant.equals(restaurantName))
                 result.add(food);
         return result;
     }

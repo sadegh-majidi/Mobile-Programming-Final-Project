@@ -71,6 +71,27 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FOOD_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME + ";";
 
+    public static final String REQUEST_TABLE_NAME = "request";
+    public static final String REQUEST_REQUESTER = "requester";
+    public static final String REQUEST_FOOD_NAME = "food_name";
+    public static final String REQUEST_FOOD_JSON = "food_json";
+    public static final String REQUEST_DELETE_MODE = "delete_mode";
+    private static final String REQUEST_CREATE_TABLE_QUERY =
+            "CREATE TABLE " + REQUEST_TABLE_NAME + " (" +
+                    REQUEST_REQUESTER + " TEXT, " +
+                    REQUEST_FOOD_NAME + " TEXT, " +
+                    REQUEST_FOOD_JSON + " TEXT, " +
+                    REQUEST_DELETE_MODE + " BOOLEAN, " +
+                    "FOREIGN KEY (" + REQUEST_REQUESTER + ") " +
+                    "REFERENCES " + USER_TABLE_NAME + "(" + USER_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE," +
+                    "FOREIGN KEY (" + REQUEST_FOOD_NAME + ") " +
+                    "REFERENCES " + FOOD_TABLE_NAME + "(" + FOOD_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "PRIMARY KEY (" + REQUEST_REQUESTER + " , " + REQUEST_FOOD_NAME + " ) );";
+    private static final String REQUEST_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + REQUEST_TABLE_NAME + ";";
+
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,10 +103,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(USER_CREATE_TABLE_QUERY);
         db.execSQL(RESTAURANT_CREATE_TABLE_QUERY);
         db.execSQL(FOOD_CREATE_TABLE_QUERY);
+        db.execSQL(REQUEST_CREATE_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(REQUEST_DROP_TABLE_QUERY);
         db.execSQL(FOOD_DROP_TABLE_QUERY);
         db.execSQL(RESTAURANT_DROP_TABLE_QUERY);
         db.execSQL(USER_DROP_TABLE_QUERY);
