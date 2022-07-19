@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import edu.sharif.snappfoodminus.R;
@@ -92,6 +93,9 @@ public class UserPanelFragment extends Fragment {
             confirmPasswordEditText.setText("");
             currentPasswordEditText.setText("");
         });
+
+        logoutImageview.setColorFilter(ActivityCompat.getColor(getContext(), android.R.color.holo_green_light));
+
 
         logoutImageview.setOnClickListener(view1 -> {
             new AlertDialog.Builder(getContext())
