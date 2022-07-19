@@ -147,9 +147,9 @@ public class OwnerRestaurantFragment extends Fragment {
     private void showItemDialog(String mode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         final View view = getLayoutInflater().inflate(R.layout.layout_add_update_food, null);
-        builder.setTitle(mode + " Item");
+        builder.setTitle("Request " + mode + " Item");
         builder.setView(view);
-        builder.setPositiveButton("Request " + mode + " Item", (dialog, which) -> {
+        builder.setPositiveButton("Request", (dialog, which) -> {
             dialog.dismiss();
             // TODO: Handle request
         });
