@@ -49,6 +49,28 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String RESTAURANT_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + RESTAURANT_TABLE_NAME + ";";
 
+    public static final String FOOD_TABLE_NAME = "food";
+    public static final String FOOD_NAME = "name";
+    public static final String FOOD_CATEGORY = "category";
+    public static final String FOOD_RESTAURANT = "restaurant";
+    public static final String FOOD_DESCRIPTION = "description";
+    public static final String FOOD_PRICE = "price";
+    private static final String FOOD_CREATE_TABLE_QUERY =
+            "CREATE TABLE " + FOOD_TABLE_NAME + " (" +
+                    FOOD_NAME + " TEXT PRIMARY KEY, " +
+                    FOOD_CATEGORY + " TEXT, " +
+                    FOOD_RESTAURANT + " TEXT, " +
+                    FOOD_DESCRIPTION + " TEXT, " +
+                    FOOD_PRICE + "  INTEGER, " +
+                    "FOREIGN KEY (" + FOOD_CATEGORY + ") " +
+                    "REFERENCES " + CATEGORY_TABLE_NAME + "(" + CATEGORY_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE," +
+                    "FOREIGN KEY (" + FOOD_RESTAURANT + ") " +
+                    "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE);";
+    private static final String FOOD_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME + ";";
+
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -59,13 +81,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CATEGORY_CREATE_TABLE_QUERY);
         db.execSQL(USER_CREATE_TABLE_QUERY);
         db.execSQL(RESTAURANT_CREATE_TABLE_QUERY);
+        db.execSQL(FOOD_CREATE_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(CATEGORY_DROP_TABLE_QUERY);
-        db.execSQL(USER_DROP_TABLE_QUERY);
+        db.execSQL(FOOD_DROP_TABLE_QUERY);
         db.execSQL(RESTAURANT_DROP_TABLE_QUERY);
+        db.execSQL(USER_DROP_TABLE_QUERY);
+        db.execSQL(CATEGORY_DROP_TABLE_QUERY);
         onCreate(db);
     }
 }
