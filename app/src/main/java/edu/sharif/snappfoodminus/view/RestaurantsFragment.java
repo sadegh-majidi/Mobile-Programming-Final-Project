@@ -34,8 +34,8 @@ import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.Filter;
-import edu.sharif.snappfoodminus.model.Restaurant;
 import edu.sharif.snappfoodminus.temp.Category;
+import edu.sharif.snappfoodminus.temp.Restaurant;
 
 public class RestaurantsFragment extends Fragment {
 
@@ -53,7 +53,7 @@ public class RestaurantsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        controller = RestaurantsController.getInstance();
+        controller = new RestaurantsController(getContext());
         sharedPreferences = getActivity().getSharedPreferences(Shared_KEY, Context.MODE_PRIVATE);
         filters = initFilters();
 

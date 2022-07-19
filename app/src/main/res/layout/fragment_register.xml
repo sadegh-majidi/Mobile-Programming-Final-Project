@@ -58,19 +58,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-        app:layout_constraintVertical_bias="0.0">
-
-        <EditText
-            android:id="@+id/restaurantNameRegisterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Restaurant Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.0"/>
 
     <LinearLayout
         android:id="@+id/passwordRegisterLayout"
@@ -213,15 +201,17 @@
                 android:text="User"
                 android:textSize="16sp" />
 
+            <RadioButton
+                android:id="@+id/restaurantOwnerRadioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Restaurant Owner"
+                android:textSize="16sp" />
+
         </RadioGroup>
 
-        <RadioButton
-            android:id="@+id/restaurantOwnerRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Restaurant Owner"
-            android:textSize="16sp" />
+
 
     </LinearLayout>
 

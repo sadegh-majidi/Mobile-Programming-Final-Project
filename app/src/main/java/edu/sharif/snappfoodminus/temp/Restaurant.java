@@ -10,37 +10,38 @@ import java.util.ArrayList;
 
 public class Restaurant {
 
-    private String name;
-    private int shippingCost;
-    private byte[] image;
+    public String name;
+    public String owner;
+    public int shippingCost;
 
-    public Restaurant(String name, int shippingCost, byte[] image) {
+    public Restaurant(String name, String owner, int shippingCost) {
         this.name = name;
+        this.owner = owner;
         this.shippingCost = shippingCost;
-        this.image = image;
     }
-
 
     public static void addRestaurant(Context context, Restaurant restaurant) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.RESTAURANT_NAME, restaurant.name);
+        contentValues.put(DBHelper.RESTAURANT_OWNER, restaurant.owner);
         contentValues.put(DBHelper.RESTAURANT_SHIPPING_COST, restaurant.shippingCost);
         db.insert(DBHelper.RESTAURANT_TABLE_NAME, null, contentValues);
         db.close();
     }
 
-    public static void updateUser(Context context, Restaurant restaurant, String key) {
+    public static void updateRestaurant(Context context, Restaurant restaurant, String key) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.RESTAURANT_NAME, restaurant.name);
+        contentValues.put(DBHelper.RESTAURANT_OWNER, restaurant.owner);
         contentValues.put(DBHelper.RESTAURANT_SHIPPING_COST, restaurant.shippingCost);
         db.update(DBHelper.RESTAURANT_TABLE_NAME, contentValues,
                 DBHelper.RESTAURANT_NAME + "=?", new String[]{key});
         db.close();
     }
 
-    public static void deleteUser(Context context, String key) {
+    public static void deleteRestaurant(Context context, String key) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         db.delete(DBHelper.RESTAURANT_TABLE_NAME,
                 DBHelper.RESTAURANT_NAME + "=?", new String[]{key});
@@ -56,8 +57,8 @@ public class Restaurant {
             do {
                 restaurants.add(new Restaurant(
                         cursor.getString(0),
-                        cursor.getInt(1),
-                        null
+                        cursor.getString(1),
+                        cursor.getInt(2)
                 ));
             } while (cursor.moveToNext());
         }
@@ -67,9 +68,17 @@ public class Restaurant {
     }
 
     public static Restaurant getRestaurantByName(Context context, String name) {
-        ArrayList<Restaurant> users = Restaurant.getAllRestaurants(context);
-        for (Restaurant restaurant: users)
+        ArrayList<Restaurant> restaurants = Restaurant.getAllRestaurants(context);
+        for (Restaurant restaurant: restaurants)
             if (restaurant.name.equals(name))
+                return restaurant;
+        return null;
+    }
+
+    public static Restaurant getRestaurantByOwner(Context context, String name) {
+        ArrayList<Restaurant> restaurants = Restaurant.getAllRestaurants(context);
+        for (Restaurant restaurant: restaurants)
+            if (restaurant.owner.equals(name))
                 return restaurant;
         return null;
     }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.UserController;
+import edu.sharif.snappfoodminus.temp.Restaurant;
 import edu.sharif.snappfoodminus.temp.Role;
 import edu.sharif.snappfoodminus.temp.User;
 
@@ -43,7 +44,6 @@ public class RegisterFragment extends Fragment {
         EditText usernameEditText = view.findViewById(R.id.usernameRegisterTxt);
         EditText passwordEditText = view.findViewById(R.id.passwordRegisterText);
         EditText confirmPasswordEditText = view.findViewById(R.id.confirmPasswordRegisterText);
-        EditText restaurantNameEditText = view.findViewById(R.id.restaurantNameRegisterText);
         RadioGroup roleRadioGroup = view.findViewById(R.id.roleRadioGroup);
         Button registerButton = view.findViewById(R.id.registerBtn);
         TextView loginLink =  view.findViewById(R.id.loginLinkText);
@@ -78,7 +78,12 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(), registerMessage, Toast.LENGTH_LONG).show();
                 } else {
                     User.addUser(getContext(), user);
-                    Toast.makeText(getContext(), "User registered successfully", Toast.LENGTH_LONG).show();
+                    if (user.role == Role.OWNER) {
+                        String restaurantName = user.username + "'s restaurant";
+                        Restaurant restaurant = new Restaurant(restaurantName, user.username, 0);
+                        Restaurant.addRestaurant(getContext(), restaurant);
+                    }
+                    Toast.makeText(getContext(), "Successfully signed up", Toast.LENGTH_LONG).show();
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentContainer, new LoginFragment()).commit();
                 }
