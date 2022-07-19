@@ -79,6 +79,8 @@ public class RegisterFragment extends Fragment {
                 } else {
                     User.addUser(getContext(), user);
                     Toast.makeText(getContext(), "User registered successfully", Toast.LENGTH_LONG).show();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragmentContainer, new LoginFragment()).commit();
                 }
             }
         });
