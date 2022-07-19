@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/shipping_cost_textview"
+                android:id="@+id/shipping_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -92,13 +92,17 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="20dp"
-                android:layout_height="15dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_star"
                 tools:ignore="ContentDescription" />
 
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="wrap_content" />
+
             <TextView
-                android:id="@+id/rate_textview"
+                android:id="@+id/rate"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

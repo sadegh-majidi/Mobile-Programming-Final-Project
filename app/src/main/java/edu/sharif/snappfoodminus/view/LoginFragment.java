@@ -97,6 +97,8 @@ public class LoginFragment extends Fragment {
                     User loggedInUser = LoginRepository.getLoggedInUser(getContext());
                     if (loggedInUser.role == Role.ADMIN)
                         startActivity(new Intent(getActivity(), AdminActivity.class));
+                    else if (loggedInUser.role == Role.OWNER)
+                        startActivity(new Intent(getActivity(), OwnerActivity.class));
                     else
                         startActivity(new Intent(getActivity(), HomeActivity.class));
                 }

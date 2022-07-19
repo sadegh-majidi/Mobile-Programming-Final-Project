@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,8 +56,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             super(itemView);
             nameTextView = itemView.findViewById(R.id.name_textview);
             categoriesTextView = itemView.findViewById(R.id.categories_textview);
-            shippingCostTextView = itemView.findViewById(R.id.shipping_cost_textview);
-            rateTextView = itemView.findViewById(R.id.rate_textview);
+            shippingCostTextView = itemView.findViewById(R.id.shipping_cost);
+            rateTextView = itemView.findViewById(R.id.rate);
         }
     }
 }
