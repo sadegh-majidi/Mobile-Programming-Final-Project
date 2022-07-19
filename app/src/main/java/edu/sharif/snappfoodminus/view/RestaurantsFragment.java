@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,9 +31,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
-import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Filter;
+import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.temp.Category;
 
 public class RestaurantsFragment extends Fragment {
 
@@ -39,9 +43,6 @@ public class RestaurantsFragment extends Fragment {
 
     private static final String Shared_KEY = "edu.sharif.snappfoodminus";
     private SharedPreferences sharedPreferences;
-
-    ProgressDialog dialog;
-
 
     private ArrayList<Filter> filters;
 
@@ -54,52 +55,30 @@ public class RestaurantsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         controller = RestaurantsController.getInstance();
         sharedPreferences = getActivity().getSharedPreferences(Shared_KEY, Context.MODE_PRIVATE);
-
-        dialog = new ProgressDialog(getContext());
-
-        initFilters();
+        filters = initFilters();
 
         Button filterButton = view.findViewById(R.id.filter_button);
         filterButton.setOnClickListener(v -> {
             filters = getCurrentFilters();
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setTitle("Filter Restaurants");
-            alertDialog.setView(getFiltersView(getActivity()));
-            alertDialog.setMessage("Select your desired categories");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
-                    (dialog, which) -> {
-                        // TODO: Filter restaurants
-                        // controller.getFilteredRestaurants(filters);
-                        updateCurrentFilters();
-                        dialog.dismiss();
-                    });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.show();
+            getFiltersDialog().show();
         });
 
+        RecyclerView recyclerView = view.findViewById(R.id.restaurants_rv);
+        ArrayList<Restaurant> restaurants = controller.getFilteredRestaurants(filters);
+        RestaurantsAdapter adapter = new RestaurantsAdapter(restaurants);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void initFilters() {
-
-        LiveData<List<Category>> liveCategories = controller.getAllCategories(getActivity().getApplication());
-
-        List<String> categories = new ArrayList<>();
-
-        liveCategories.observe(getViewLifecycleOwner(), categories1 -> {
-            Log.d("arya","second");
-            for (Category category : categories1){
-                categories.add(category.getName());
-            }
-            ArrayList<Filter> filters = new ArrayList<>();
-            for (String category: categories)
-                filters.add(new Filter(category, true));
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Filters", new Gson().toJson(filters));
-            editor.apply();
-            Log.d("arya","tamom shod");
-            dialog.dismiss();
-        });
+    private ArrayList<Filter> initFilters() {
+        ArrayList<Category> categories = controller.getAllCategories(getContext());
+        ArrayList<Filter> filters = new ArrayList<>();
+        for (Category category: categories)
+            filters.add(new Filter(category.name, true));
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Filters", new Gson().toJson(filters));
+        editor.apply();
+        return filters;
     }
 
     private ArrayList<Filter> getCurrentFilters() {
@@ -130,5 +109,23 @@ public class RestaurantsFragment extends Fragment {
             });
         }
         return layout;
+    }
+
+    private AlertDialog getFiltersDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        ArrayList<Category> categories = controller.getAllCategories(getContext());
+        alertDialog.setTitle("Filter Restaurants");
+        alertDialog.setView(getFiltersView(getActivity()));
+        alertDialog.setMessage("Select your desired categories");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
+                (dialog, which) -> {
+                    // TODO: Filter restaurants
+                    // controller.getFilteredRestaurants(filters);
+                    updateCurrentFilters();
+                    dialog.dismiss();
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                (dialog, which) -> dialog.dismiss());
+        return alertDialog;
     }
 }
