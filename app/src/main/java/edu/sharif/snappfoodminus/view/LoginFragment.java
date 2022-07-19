@@ -1,5 +1,6 @@
 package edu.sharif.snappfoodminus.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.UserController;
+import edu.sharif.snappfoodminus.temp.LoginRepository;
 import edu.sharif.snappfoodminus.temp.User;
 
 public class LoginFragment extends Fragment {
@@ -89,7 +91,9 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Incorrect username or password",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    // TODO: Login
+                    // TODO: Login for owner or admin
+                    LoginRepository.username = user.username;
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
                 }
             }
         });

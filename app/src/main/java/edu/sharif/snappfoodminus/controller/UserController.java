@@ -40,11 +40,9 @@ public class UserController {
     }
 
     public User login(String username, String password) {
-        ArrayList<User> users = User.getAllUsers(context);
-        for (User user: users) {
-            if (user.username.equals(username) && user.password.equals(password))
-                return user;
-        }
+        User user = User.getUserByUsername(context, username);
+        if (user != null && user.password.equals(password))
+            return user;
         return null;
     }
 

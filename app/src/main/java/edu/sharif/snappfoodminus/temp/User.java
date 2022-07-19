@@ -70,4 +70,12 @@ public class User {
         db.close();
         return users;
     }
+
+    public static User getUserByUsername(Context context, String username) {
+        ArrayList<User> users = User.getAllUsers(context);
+        for (User user: users)
+            if (user.username.equals(username))
+                return user;
+        return null;
+    }
 }

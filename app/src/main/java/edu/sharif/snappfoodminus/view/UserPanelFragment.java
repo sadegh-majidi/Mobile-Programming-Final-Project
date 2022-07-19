@@ -1,9 +1,9 @@
 package edu.sharif.snappfoodminus.view;
 
-import static android.content.Context.MODE_PRIVATE;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +22,13 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.controller.UserPanelController;
+import edu.sharif.snappfoodminus.controller.UserController;
+import edu.sharif.snappfoodminus.temp.LoginRepository;
+import edu.sharif.snappfoodminus.temp.User;
 
 public class UserPanelFragment extends Fragment {
 
-    private UserPanelController controller;
+    private UserController controller;
 
     private static final String Shared_KEY = "edu.sharif.snappfoodminus";
     private SharedPreferences sharedPreferences;
@@ -37,46 +41,70 @@ public class UserPanelFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        controller = new UserPanelController(getActivity());
-        sharedPreferences = this.getActivity().getSharedPreferences(Shared_KEY, MODE_PRIVATE);
 
-        EditText newNameTxt = view.findViewById(R.id.userPanelNewNameText);
-        EditText oldPasswordTxt = view.findViewById(R.id.userPanelOldPasswordText);
-        EditText oldPasswordConfirmationTxt = view.findViewById(R.id.userPanelConfirmOldPasswordText);
-        EditText newPasswordTxt = view.findViewById(R.id.userPanelNewPasswordText);
+        controller = new UserController(getContext());
+        sharedPreferences = getActivity().getSharedPreferences(Shared_KEY, Context.MODE_PRIVATE);
 
-        Button changeButton = view.findViewById(R.id.changeButton);
+        TextView nameTextView = view.findViewById(R.id.userPanelName);
+        TextView usernameTextView = view.findViewById(R.id.userPanelUsername);
+        EditText newNameEditText = view.findViewById(R.id.userPanelNewName);
+        EditText newPasswordEditText = view.findViewById(R.id.userPanelNewPassword);
+        EditText confirmPasswordEditText = view.findViewById(R.id.userPanelNewPasswordConfirm);
+        EditText currentPasswordEditText = view.findViewById(R.id.userPanelCurrentPassword);
+        Button confirmChangesButton = view.findViewById(R.id.userPanelChangeInfoButton);
 
-        SwitchCompat darkMode = view.findViewById(R.id.darkModeSwitch);
+        User loggedInUser = LoginRepository.getLoggedInUser(getContext());
+        nameTextView.setText(loggedInUser.name);
+        usernameTextView.setText(loggedInUser.username);
 
-        changeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newName = newNameTxt.getText().toString();
-                String oldPassword = oldPasswordTxt.getText().toString();
-                String oldPasswordConfirmation = oldPasswordConfirmationTxt.getText().toString();
-                String newPassword = newPasswordTxt.getText().toString();
-                String errorMsg = null;
+        confirmChangesButton.setOnClickListener(v -> {
+            String newName = newNameEditText.getText().toString().trim();
+            String newPassword = newPasswordEditText.getText().toString().trim();
+            String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+            String currentPassword = currentPasswordEditText.getText().toString().trim();
+            String newPasswordError = controller.getPasswordError(newPassword);
 
-                errorMsg = controller.getError(newName, oldPassword, oldPasswordConfirmation, newPassword);
+            User user = LoginRepository.getLoggedInUser(getContext());
+            if (user.password.equals(currentPassword)) {
+                if (!newName.isEmpty())
+                    user.name = newName;
+                if (newPassword.equals(confirmPassword) && newPasswordError == null)
+                    user.password = newPassword;
+                if ((newPassword.isEmpty() && confirmPassword.isEmpty()) ||
+                        (newPassword.equals(confirmPassword) && newPasswordError == null)) {
+                    User.updateUser(getContext(), user, user.username);
+                    nameTextView.setText(user.name);
+                    Toast.makeText(getContext(), "User info updated successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "New password not allowed", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Incorrect password", Toast.LENGTH_LONG).show();
             }
+            newNameEditText.setText("");
+            newPasswordEditText.setText("");
+            confirmPasswordEditText.setText("");
+            currentPasswordEditText.setText("");
         });
 
-        boolean isNight = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES;
-        darkMode.setChecked(isNight);
 
-        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
-                    saveDarkModeState(true);
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
-                }else {
-                    saveDarkModeState(false);
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
-            }
-            }
-        });
+
+//
+//        boolean isNight = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES;
+//        darkMode.setChecked(isNight);
+//
+//        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b) {
+//                    saveDarkModeState(true);
+//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+//                }else {
+//                    saveDarkModeState(false);
+//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO);
+//            }
+//            }
+//        });
 
 
     }
