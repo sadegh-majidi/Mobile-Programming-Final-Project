@@ -35,7 +35,7 @@ public class Food {
         db.close();
     }
 
-    public static void updateFood(Context context, Food food, String key) {
+    public static void updateFood(Context context, Food food, String name, String restaurant) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.FOOD_NAME, food.name);
@@ -43,14 +43,18 @@ public class Food {
         contentValues.put(DBHelper.FOOD_RESTAURANT, food.restaurant);
         contentValues.put(DBHelper.FOOD_DESCRIPTION, food.description);
         contentValues.put(DBHelper.FOOD_PRICE, food.price);
-        db.update(DBHelper.FOOD_TABLE_NAME, contentValues,
-                DBHelper.FOOD_NAME + " = ?", new String[]{key});
+        db.update(DBHelper.FOOD_TABLE_NAME,
+                contentValues,
+                DBHelper.FOOD_NAME + " = ? AND " + DBHelper.FOOD_RESTAURANT + " = ?",
+                new String[]{name, restaurant});
         db.close();
     }
 
-    public static void deleteFood(Context context, String key) {
+    public static void deleteFood(Context context, String name, String restaurant) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
-        db.delete(DBHelper.FOOD_TABLE_NAME, DBHelper.FOOD_NAME + " = ?", new String[]{key});
+        db.delete(DBHelper.FOOD_TABLE_NAME,
+                DBHelper.FOOD_NAME + " = ? AND " + DBHelper.FOOD_RESTAURANT + " = ?",
+                new String[]{name, restaurant});
         db.close();
     }
 
@@ -75,12 +79,21 @@ public class Food {
         return foods;
     }
 
-    public static Food getFoodByName(Context context, String name) {
+    public static Food getFoodByNameAndRestaurant(Context context, String name, String restaurant) {
         ArrayList<Food> foods = Food.getAllFoods(context);
         for (Food food : foods)
-            if (food.name.equals(name))
+            if (food.name.equals(name) && food.restaurant.equals(restaurant))
                 return food;
         return null;
+    }
+
+    public static ArrayList<Food> getFoodsByName(Context context, String name) {
+        ArrayList<Food> foods = Food.getAllFoods(context);
+        ArrayList<Food> result = new ArrayList<>();
+        for (Food food : foods)
+            if (food.name.equals(name))
+                result.add(food);
+        return result;
     }
 
     public static ArrayList<Food> getFoodsByCategory(Context context, String categoryName) {
