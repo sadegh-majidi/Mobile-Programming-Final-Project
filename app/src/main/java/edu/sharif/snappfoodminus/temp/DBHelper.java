@@ -79,6 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String REQUEST_FOOD = "food";
     public static final String REQUEST_DATA = "data";
     public static final String REQUEST_STATUS = "status";
+    public static final String REQUEST_DESCRIPTION = "description";
     private static final String REQUEST_CREATE_TABLE_QUERY =
             "CREATE TABLE " + REQUEST_TABLE_NAME + " (" +
                     REQUEST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -87,14 +88,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     REQUEST_FOOD + " TEXT, " +
                     REQUEST_DATA + " TEXT, " +
                     REQUEST_STATUS + " TEXT, " +
-                    "FOREIGN KEY (" + REQUEST_REQUESTER + ") " +
-                    "REFERENCES " + USER_TABLE_NAME + "(" + USER_NAME + ") " +
-                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    REQUEST_DESCRIPTION + " TEXT, " +
                     "FOREIGN KEY (" + REQUEST_RESTAURANT + ") " +
                     "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
-                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
-                    "FOREIGN KEY (" + REQUEST_FOOD + ") " +
-                    "REFERENCES " + FOOD_TABLE_NAME + "(" + FOOD_NAME + ") " +
                     "ON DELETE CASCADE ON UPDATE CASCADE);";
     private static final String REQUEST_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + REQUEST_TABLE_NAME + ";";
@@ -121,5 +117,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(USER_DROP_TABLE_QUERY);
         db.execSQL(CATEGORY_DROP_TABLE_QUERY);
         onCreate(db);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
     }
 }

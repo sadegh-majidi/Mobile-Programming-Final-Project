@@ -1,16 +1,11 @@
 package edu.sharif.snappfoodminus.view;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,9 +19,7 @@ import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
-import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.AdminCategoriesController;
-import edu.sharif.snappfoodminus.model.Filter;
 import edu.sharif.snappfoodminus.temp.Category;
 
 public class AdminCategoriesFragment extends Fragment {
@@ -50,9 +43,9 @@ public class AdminCategoriesFragment extends Fragment {
             getAddCategoryDialog().show();
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.categories_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.requests_rv);
         categories = Category.getAllCategories(getContext());
-        adapter = new AdminCategoriesAdapter(categories,getActivity());
+        adapter = new AdminCategoriesAdapter(categories, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

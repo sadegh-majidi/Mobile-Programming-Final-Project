@@ -106,7 +106,7 @@ public class AdminCategoriesAdapter extends RecyclerView.Adapter<AdminCategories
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.categoryName);
+            nameTextView = itemView.findViewById(R.id.requestTitleTextView);
             editImageView = itemView.findViewById(R.id.categoryEditImageView);
             deleteImageView = itemView.findViewById(R.id.categoryDeleteImageView);
         }

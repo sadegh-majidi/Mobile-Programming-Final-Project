@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -185,11 +186,10 @@ public class OwnerRestaurantFragment extends Fragment {
             String categoryError = controller.getNameError(category);
             if (nameError == null) {
                 if (categoryError == null) {
-                    User user = LoginRepository.getLoggedInUser(getContext());
-                    String restaurant = Restaurant.getRestaurantByOwner(getContext(), user.username).name;
+                    String restaurant = Restaurant.getRestaurantByOwner(getContext(), LoginRepository.username).name;
                     Food food = new Food(name, category, restaurant, description, price);
                     String data = new Gson().toJson(food);
-                    Request request = new Request(user.name, restaurant, name, data, RequestStatus.PENDING);
+                    Request request = new Request(null, LoginRepository.username, restaurant, mode.equals("Add") ? null : name, data, RequestStatus.PENDING, null);
                     Request.addRequest(getContext(), request);
                     Toast.makeText(getContext(), String.valueOf(Request.getAllRequests(getContext()).size()), Toast.LENGTH_LONG).show();
                 } else {
