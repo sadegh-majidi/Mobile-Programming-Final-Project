@@ -64,30 +64,38 @@ public class DBHelper extends SQLiteOpenHelper {
                     FOOD_PRICE + "  INTEGER, " +
                     "FOREIGN KEY (" + FOOD_CATEGORY + ") " +
                     "REFERENCES " + CATEGORY_TABLE_NAME + "(" + CATEGORY_NAME + ") " +
-                    "ON DELETE CASCADE ON UPDATE CASCADE," +
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "FOREIGN KEY (" + FOOD_RESTAURANT + ") " +
                     "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
-                    "ON DELETE CASCADE ON UPDATE CASCADE," +
-                    "PRIMARY KEY (" + FOOD_RESTAURANT + " , " + FOOD_NAME + " ) );";
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "PRIMARY KEY (" + FOOD_RESTAURANT + ", " + FOOD_NAME + "));";
     private static final String FOOD_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME + ";";
 
     public static final String REQUEST_TABLE_NAME = "request";
     public static final String REQUEST_ID = "id";
     public static final String REQUEST_REQUESTER = "requester";
-    public static final String REQUEST_FOOD_NAME = "food_name";
-    public static final String REQUEST_FOOD_JSON = "food_json";
-    public static final String REQUEST_DELETE_MODE = "delete_mode";
+    public static final String REQUEST_RESTAURANT = "restaurant";
+    public static final String REQUEST_FOOD = "food";
+    public static final String REQUEST_DATA = "data";
+    public static final String REQUEST_STATUS = "status";
     private static final String REQUEST_CREATE_TABLE_QUERY =
             "CREATE TABLE " + REQUEST_TABLE_NAME + " (" +
-                    REQUEST_ID + " INTEGER PRIMARY KEY, " +
+                    REQUEST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     REQUEST_REQUESTER + " TEXT, " +
-                    REQUEST_FOOD_NAME + " TEXT, " +
-                    REQUEST_FOOD_JSON + " TEXT, " +
-                    REQUEST_DELETE_MODE + " BOOLEAN, " +
+                    REQUEST_RESTAURANT + " TEXT, " +
+                    REQUEST_FOOD + " TEXT, " +
+                    REQUEST_DATA + " TEXT, " +
+                    REQUEST_STATUS + " TEXT, " +
                     "FOREIGN KEY (" + REQUEST_REQUESTER + ") " +
                     "REFERENCES " + USER_TABLE_NAME + "(" + USER_NAME + ") " +
-                    "ON DELETE CASCADE ON UPDATE CASCADE );";
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "FOREIGN KEY (" + REQUEST_RESTAURANT + ") " +
+                    "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "FOREIGN KEY (" + REQUEST_FOOD + ") " +
+                    "REFERENCES " + FOOD_TABLE_NAME + "(" + FOOD_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE);";
     private static final String REQUEST_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + REQUEST_TABLE_NAME + ";";
 

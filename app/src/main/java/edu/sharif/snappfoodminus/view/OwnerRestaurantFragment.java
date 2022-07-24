@@ -1,11 +1,17 @@
 package edu.sharif.snappfoodminus.view;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
@@ -26,14 +34,17 @@ import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
 import edu.sharif.snappfoodminus.controller.AdminCategoriesController;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
 import edu.sharif.snappfoodminus.temp.Category;
+import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.LoginRepository;
+import edu.sharif.snappfoodminus.temp.Request;
+import edu.sharif.snappfoodminus.temp.RequestStatus;
 import edu.sharif.snappfoodminus.temp.Restaurant;
 import edu.sharif.snappfoodminus.temp.User;
 
 public class OwnerRestaurantFragment extends Fragment {
 
     private OwnerRestaurantController controller;
-    
+
     private TextView restaurantNameTextView;
     private TextView shippingCostTextView;
 
@@ -144,14 +155,50 @@ public class OwnerRestaurantFragment extends Fragment {
         alertDialog.show();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showItemDialog(String mode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         final View view = getLayoutInflater().inflate(R.layout.layout_add_update_food, null);
+        EditText nameEditText = view.findViewById(R.id.item_name);
+        AutoCompleteTextView categoryTextView = view.findViewById(R.id.item_category);
+        EditText descriptionEditText = view.findViewById(R.id.item_description);
+        EditText priceEditText = view.findViewById(R.id.item_price);
+
+        ArrayList<String> categories = Category.getAllCategoriesNames(getContext());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                (getContext(), android.R.layout.select_dialog_item, categories);
+        categoryTextView.setAdapter(adapter);
+        categoryTextView.setOnTouchListener((v, event) -> {
+            categoryTextView.showDropDown();
+            return false;
+        });
+
         builder.setTitle("Request " + mode + " Item");
         builder.setView(view);
         builder.setPositiveButton("Request", (dialog, which) -> {
+            String name = nameEditText.getText().toString().trim();
+            String category = categoryTextView.getText().toString().trim();
+            String description = descriptionEditText.getText().toString().trim();
+            int price = Integer.parseInt(priceEditText.getText().toString().trim());
+
+            String nameError = controller.getNameError(name);
+            String categoryError = controller.getNameError(category);
+            if (nameError == null) {
+                if (categoryError == null) {
+                    User user = LoginRepository.getLoggedInUser(getContext());
+                    String restaurant = Restaurant.getRestaurantByOwner(getContext(), user.username).name;
+                    Food food = new Food(name, category, restaurant, description, price);
+                    String data = new Gson().toJson(food);
+                    Request request = new Request(user.name, restaurant, name, data, RequestStatus.PENDING);
+                    Request.addRequest(getContext(), request);
+                    Toast.makeText(getContext(), String.valueOf(Request.getAllRequests(getContext()).size()), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), categoryError, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getContext(), nameError, Toast.LENGTH_LONG).show();
+            }
             dialog.dismiss();
-            // TODO: Handle request
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         AlertDialog alertDialog = builder.create();

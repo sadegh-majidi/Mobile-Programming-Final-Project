@@ -56,6 +56,14 @@ public class Category {
         return categories;
     }
 
+    public static ArrayList<String> getAllCategoriesNames(Context context) {
+        ArrayList<Category> categories = getAllCategories(context);
+        ArrayList<String> result = new ArrayList<>();
+        for (Category category: categories)
+            result.add(category.name);
+        return result;
+    }
+
     public static Category getCategoryByName(Context context, String name) {
         ArrayList<Category> categories = Category.getAllCategories(context);
         for (Category category: categories)

@@ -10,47 +10,28 @@ import java.util.ArrayList;
 
 public class Request {
     public String requester;
-    public String foodName;
-    public String foodJSON;
-    public boolean deleteMode;
+    public String restaurant;
+    public String food;
+    public String data;
+    public RequestStatus status;
 
-    public Request(String requester, String foodName, String foodJSON, boolean deleteMode) {
+    public Request(String requester, String restaurant, String food, String data, RequestStatus status) {
         this.requester = requester;
-        this.foodName = foodName;
-        this.foodJSON = foodJSON;
-        this.deleteMode = deleteMode;
+        this.restaurant = restaurant;
+        this.food = food;
+        this.data = data;
+        this.status = status;
     }
 
     public static void addRequest(Context context, Request request) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.REQUEST_REQUESTER, request.requester);
-        contentValues.put(DBHelper.REQUEST_FOOD_NAME, request.foodName);
-        contentValues.put(DBHelper.REQUEST_FOOD_JSON, request.foodJSON);
-        contentValues.put(DBHelper.REQUEST_DELETE_MODE, request.deleteMode);
+        contentValues.put(DBHelper.REQUEST_RESTAURANT, request.restaurant);
+        contentValues.put(DBHelper.REQUEST_FOOD, request.food);
+        contentValues.put(DBHelper.REQUEST_DATA, request.data);
+        contentValues.put(DBHelper.REQUEST_STATUS, request.status.name());
         db.insert(DBHelper.REQUEST_TABLE_NAME, null, contentValues);
-        db.close();
-    }
-
-    public static void updateRequest(Context context, Request request, int id) {
-        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.REQUEST_REQUESTER, request.requester);
-        contentValues.put(DBHelper.REQUEST_FOOD_NAME, request.foodName);
-        contentValues.put(DBHelper.REQUEST_FOOD_JSON, request.foodJSON);
-        contentValues.put(DBHelper.REQUEST_DELETE_MODE, request.deleteMode);
-        db.update(DBHelper.REQUEST_TABLE_NAME,
-                contentValues,
-                DBHelper.REQUEST_ID + " = ?",
-                new String[]{String.valueOf(id)});
-        db.close();
-    }
-
-    public static void deleteRequest(Context context, int id) {
-        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
-        db.delete(DBHelper.REQUEST_TABLE_NAME,
-                DBHelper.REQUEST_ID + " = ?",
-                new String[]{String.valueOf(id)});
         db.close();
     }
 
@@ -65,7 +46,8 @@ public class Request {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getInt(4) > 0
+                        cursor.getString(4),
+                        RequestStatus.valueOf(cursor.getString(5))
                 ));
             } while (cursor.moveToNext());
         }
@@ -82,5 +64,4 @@ public class Request {
                 result.add(request);
         return result;
     }
-
 }
