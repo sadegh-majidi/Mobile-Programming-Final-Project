@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="categoryItem">#838181</color>
+    <color name="recyclerViewItemBG">#4B4B4B</color>
+    <color name="penDelete">@color/black</color>
+    <color name="customeEditText">#4A4A4A</color>
 </resources>

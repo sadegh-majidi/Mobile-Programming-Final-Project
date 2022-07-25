@@ -7,5 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="categoryItem">#EEEEEE</color>
+    <color name="penDelete">@color/black</color>
+    <color name="recyclerViewItemBG">#EEEEEE</color>
+    <color name="customeEditText">#ECECEC</color>
 </resources>

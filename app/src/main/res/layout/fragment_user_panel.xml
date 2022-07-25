@@ -62,10 +62,11 @@
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/darkModeSwitch">
 
@@ -80,7 +81,8 @@
         <EditText
             android:id="@+id/userPanelNewName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
             android:gravity="center"
             android:hint="New name"
@@ -101,7 +103,9 @@
         <EditText
             android:id="@+id/userPanelNewPassword"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
             android:gravity="center"
             android:hint="New password"
@@ -110,7 +114,8 @@
         <EditText
             android:id="@+id/userPanelNewPasswordConfirm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
             android:gravity="center"
             android:hint="Confirm password"
@@ -131,7 +136,8 @@
         <EditText
             android:id="@+id/userPanelCurrentPassword"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_edittext"
             android:ems="10"
             android:gravity="center"
             android:hint="Current password"
@@ -146,13 +152,17 @@
         android:text="Confirm Changes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Switch
         android:id="@+id/darkModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:minHeight="48dp"
         android:text="Dark Mode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
