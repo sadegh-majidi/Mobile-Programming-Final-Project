@@ -10,4 +10,7 @@
     <color name="categoryItem">#EEEEEE</color>
     <color name="plainBorder">#808080</color>
     <color name="coloredBorder">#FF3700B3</color>
+    <color name="penDelete">@color/black</color>
+    <color name="recyclerViewItemBG">#EEEEEE</color>
+    <color name="customEditText">#ECECEC</color>
 </resources>
