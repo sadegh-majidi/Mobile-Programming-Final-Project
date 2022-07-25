@@ -123,7 +123,7 @@ public class OwnerFoodsAdapter extends RecyclerView.Adapter<OwnerFoodsAdapter.Vi
         holder.deleteImageView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
             builder.setTitle("Delete Item");
-            builder.setMessage("Are you sure to delete " + food.name);
+            builder.setMessage("Are you sure to delete " + food.name + "?");
             builder.setPositiveButton("Delete", (dialog, which) -> {
                 Food.deleteFood(v.getContext(), food.name, food.restaurant);
                 mFoods.remove(position);

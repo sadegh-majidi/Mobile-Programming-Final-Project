@@ -11,7 +11,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/categoryNameTextView"
+        android:id="@+id/requestTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/deleteImageView"
+        android:id="@+id/categoryDeleteImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -35,12 +35,12 @@
         app:srcCompat="@drawable/ic_delete" />
 
     <ImageView
-        android:id="@+id/editImageView"
+        android:id="@+id/categoryEditImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteImageView"
+        app:layout_constraintEnd_toStartOf="@+id/categoryDeleteImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit" />
+        app:srcCompat="@drawable/ic_edit"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
