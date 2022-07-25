@@ -6,7 +6,7 @@
     android:layout_height="150dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_restaurant_item"
+    android:background="@drawable/bg_recyclerview_item"
     android:padding="20dp">
 
     <ImageView

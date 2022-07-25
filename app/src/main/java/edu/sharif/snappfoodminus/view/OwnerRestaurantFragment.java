@@ -1,21 +1,14 @@
 package edu.sharif.snappfoodminus.view;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,12 +27,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.OwnerFoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
-import edu.sharif.snappfoodminus.adapter.RequestsAdapter;
-import edu.sharif.snappfoodminus.controller.AdminCategoriesController;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
 import edu.sharif.snappfoodminus.temp.Category;
 import edu.sharif.snappfoodminus.temp.Food;
@@ -105,10 +95,8 @@ public class OwnerRestaurantFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 handleCategorySelection(position);
-                Toast.makeText(getContext(),currentCategory, Toast.LENGTH_SHORT).show();
                 foods.clear();
                 foods.addAll(Food.getFoodsByRestaurantAndCategory(getContext(), restaurant.name, currentCategory));
-                Log.d("miu", new Gson().toJson(foods));
                 foodsAdapter.notifyDataSetChanged();
             }
 
@@ -131,9 +119,9 @@ public class OwnerRestaurantFragment extends Fragment {
         foodsRecyclerView.setAdapter(foodsAdapter);
         foodsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        TextView textView = view.findViewById(R.id.rate);
-        textView.setOnClickListener(v -> {
-            showItemDialog("Add");
+        ImageView addItemImageView = view.findViewById(R.id.addItemImageView);
+        addItemImageView.setOnClickListener(v -> {
+            showAddItemDialog();
         });
     }
 
@@ -152,11 +140,6 @@ public class OwnerRestaurantFragment extends Fragment {
                 nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.plainBorder));
             }
         }
-//        final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
-//                categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(position));
-//        holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
-//        TextView nameTextView = holder.itemView.findViewById(R.id.categoryNameTextView);
-//        nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.coloredBorder));
     }
 
     private String getShippingCostToView(int shippingCost) {
@@ -234,7 +217,7 @@ public class OwnerRestaurantFragment extends Fragment {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void showItemDialog(String mode) {
+    private void showAddItemDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         final View view = getLayoutInflater().inflate(R.layout.layout_add_update_food, null);
         EditText nameEditText = view.findViewById(R.id.item_name);
@@ -251,7 +234,7 @@ public class OwnerRestaurantFragment extends Fragment {
             return false;
         });
 
-        builder.setTitle("Request " + mode + " Item");
+        builder.setTitle("Request Add Item");
         builder.setView(view);
         builder.setPositiveButton("Request", (dialog, which) -> {
             String name = nameEditText.getText().toString().trim();
@@ -266,7 +249,7 @@ public class OwnerRestaurantFragment extends Fragment {
                     String restaurant = Restaurant.getRestaurantByOwner(getContext(), LoginRepository.username).name;
                     Food food = new Food(name, category, restaurant, description, price);
                     String data = new Gson().toJson(food);
-                    Request request = new Request(null, LoginRepository.username, restaurant, mode.equals("Add") ? null : name, data, RequestStatus.PENDING, null);
+                    Request request = new Request(null, LoginRepository.username, restaurant, "Add".equals("Add") ? null : name, data, RequestStatus.PENDING, null);
                     Request.addRequest(getContext(), request);
                     Toast.makeText(getContext(), "Request sent", Toast.LENGTH_LONG).show();
                 } else {

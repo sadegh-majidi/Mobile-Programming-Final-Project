@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_marginTop="5dp"
-    android:background="@drawable/bg_restaurant_item"
+    android:background="@drawable/bg_recyclerview_item"
     android:theme="@style/Theme.AppCompat.DayNight"
     android:layout_marginBottom="5dp"
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/requestTitleTextView"
+        android:id="@+id/categoryTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
