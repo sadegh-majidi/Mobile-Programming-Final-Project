@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
     android:background="@drawable/bg_restaurant_item"
+    android:theme="@style/Theme.AppCompat.DayNight"
+    android:layout_marginBottom="5dp"
     android:padding="10dp">
 
     <TextView
@@ -14,25 +15,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="Request Title"
+        android:text="Category Name"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/statusTextView"
+    <ImageView
+        android:id="@+id/deleteImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Status"
-        android:textSize="16sp"
-        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/editImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

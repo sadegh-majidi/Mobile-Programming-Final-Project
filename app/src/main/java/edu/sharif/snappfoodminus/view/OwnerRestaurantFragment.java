@@ -1,6 +1,7 @@
 package edu.sharif.snappfoodminus.view;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +35,10 @@ import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
+import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
+import edu.sharif.snappfoodminus.adapter.OwnerFoodsAdapter;
+import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
+import edu.sharif.snappfoodminus.adapter.RequestsAdapter;
 import edu.sharif.snappfoodminus.controller.AdminCategoriesController;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
 import edu.sharif.snappfoodminus.temp.Category;
@@ -46,8 +53,17 @@ public class OwnerRestaurantFragment extends Fragment {
 
     private OwnerRestaurantController controller;
 
+    private RecyclerView categoriesRecyclerView;
+    private RecyclerView foodsRecyclerView;
+    private CategoriesAdapter categoriesAdapter;
+    private OwnerFoodsAdapter foodsAdapter;
+    private ArrayList<Category> categories;
+    private ArrayList<Food> foods;
+
     private TextView restaurantNameTextView;
     private TextView shippingCostTextView;
+
+    private String currentCategory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,10 +92,71 @@ public class OwnerRestaurantFragment extends Fragment {
             showEditShippingCostDialog(restaurant);
         });
 
+        categoriesRecyclerView = view.findViewById(R.id.categories_rv);
+        categories = Category.getAllCategories(getContext());
+        if (categories.size() > 0)
+            currentCategory = categories.get(0).name;
+        categoriesAdapter = new CategoriesAdapter(categories);
+        categoriesRecyclerView.setAdapter(categoriesAdapter);
+        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        categoriesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener
+                (getContext(),categoriesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onItemClick(View view, int position) {
+                handleCategorySelection(position);
+                Toast.makeText(getContext(),currentCategory, Toast.LENGTH_SHORT).show();
+                foods.clear();
+                foods.addAll(Food.getFoodsByRestaurantAndCategory(getContext(), restaurant.name, currentCategory));
+                Log.d("miu", new Gson().toJson(foods));
+                foodsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        categoriesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                handleCategorySelection(-1);
+            }
+        });
+
+        foodsRecyclerView = view.findViewById(R.id.foods_rv);
+        foods = Food.getFoodsByRestaurantAndCategory(getContext(), restaurant.name, currentCategory);
+        foodsAdapter = new OwnerFoodsAdapter(foods);
+        foodsRecyclerView.setAdapter(foodsAdapter);
+        foodsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         TextView textView = view.findViewById(R.id.rate);
         textView.setOnClickListener(v -> {
             showItemDialog("Add");
         });
+    }
+
+    private void handleCategorySelection(int position) {
+        if (position != -1)
+            currentCategory = categories.get(position).name;
+        for (int i = 0; i < categoriesRecyclerView.getChildCount(); i++) {
+            final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
+                    categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(i));
+            TextView nameTextView = holder.itemView.findViewById(R.id.categoryNameTextView);
+            if (nameTextView.getText().toString().equals(currentCategory)) {
+                holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
+                nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.coloredBorder));
+            } else {
+                holder.itemView.setBackgroundResource(R.drawable.bg_plain_border);
+                nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.plainBorder));
+            }
+        }
+//        final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
+//                categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(position));
+//        holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
+//        TextView nameTextView = holder.itemView.findViewById(R.id.categoryNameTextView);
+//        nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.coloredBorder));
     }
 
     private String getShippingCostToView(int shippingCost) {
@@ -191,7 +268,7 @@ public class OwnerRestaurantFragment extends Fragment {
                     String data = new Gson().toJson(food);
                     Request request = new Request(null, LoginRepository.username, restaurant, mode.equals("Add") ? null : name, data, RequestStatus.PENDING, null);
                     Request.addRequest(getContext(), request);
-                    Toast.makeText(getContext(), String.valueOf(Request.getAllRequests(getContext()).size()), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Request sent", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), categoryError, Toast.LENGTH_LONG).show();
                 }

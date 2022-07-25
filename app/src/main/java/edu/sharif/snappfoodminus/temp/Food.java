@@ -113,4 +113,13 @@ public class Food {
                 result.add(food);
         return result;
     }
+
+    public static ArrayList<Food> getFoodsByRestaurantAndCategory(Context context, String restaurantName, String categoryName) {
+        ArrayList<Food> foods = getFoodsByRestaurant(context, restaurantName);
+        ArrayList<Food> result = new ArrayList<>();
+        for (Food food : foods)
+            if (food.category.equals(categoryName))
+                result.add(food);
+        return result;
+    }
 }

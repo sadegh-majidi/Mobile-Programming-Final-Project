@@ -33,7 +33,7 @@ public class AdminCategoriesAdapter extends RecyclerView.Adapter<AdminCategories
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.layout_category_item, parent, false);
+        View view = inflater.inflate(R.layout.layout_admin_category_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -106,9 +106,9 @@ public class AdminCategoriesAdapter extends RecyclerView.Adapter<AdminCategories
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.requestTitleTextView);
-            editImageView = itemView.findViewById(R.id.categoryEditImageView);
-            deleteImageView = itemView.findViewById(R.id.categoryDeleteImageView);
+            nameTextView = itemView.findViewById(R.id.categoryNameTextView);
+            editImageView = itemView.findViewById(R.id.editImageView);
+            deleteImageView = itemView.findViewById(R.id.deleteImageView);
         }
     }
 }

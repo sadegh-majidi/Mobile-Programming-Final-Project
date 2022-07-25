@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="categoryItem">#838181</color>
+    <color name="plainBorder">#D3D3D3</color>
+    <color name="coloredBorder">#FFBB86FC</color>
 </resources>

@@ -62,7 +62,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.requestTitleTextView);
+            nameTextView = itemView.findViewById(R.id.categoryNameTextView);
             statusTextView = itemView.findViewById(R.id.statusTextView);
         }
     }

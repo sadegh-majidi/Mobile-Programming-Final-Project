@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="categoryItem">#EEEEEE</color>
+    <color name="plainBorder">#808080</color>
+    <color name="coloredBorder">#FF3700B3</color>
 </resources>

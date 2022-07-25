@@ -73,7 +73,7 @@ public class OwnerRequestsFragment extends Fragment {
         if (request.description != null && !request.description.isEmpty())
             feedbackTextView.setText(request.description);
 
-        builder.setTitle("My Request Info");
+        builder.setTitle("Request Info");
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
