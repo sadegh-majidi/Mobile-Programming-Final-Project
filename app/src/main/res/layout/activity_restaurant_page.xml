@@ -36,8 +36,20 @@
             android:textSize="24sp" />
 
         <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Space
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/cart_image_view"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ic_shopping_cart"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

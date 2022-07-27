@@ -2,6 +2,7 @@ package edu.sharif.snappfoodminus.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,20 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> 
         holder.nameTextView.setText(food.name);
         holder.priceTextView.setText(food.price == 0 ? "Free" : ("$" + food.price));
         holder.descriptionTextView.setText(food.description);
+
+        holder.zeroCount = true;
+        holder.itemCountTextView.setText("0");
         holder.itemCountTextView.setVisibility(View.INVISIBLE);
+        holder.removeItemTextView.setVisibility(View.INVISIBLE);
+        for (Pair<Food, Integer> item: CartRepository.items) {
+            if (item.first.name.equals(food.name)) {
+                holder.zeroCount = false;
+                holder.itemCountTextView.setText(String.valueOf(item.second));
+                holder.itemCountTextView.setVisibility(View.VISIBLE);
+                holder.removeItemTextView.setVisibility(View.VISIBLE);
+            }
+        }
+
         holder.addItemTextView.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.itemCountTextView.getText().toString());
             if (holder.zeroCount) {
@@ -67,7 +81,6 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> 
             }
             CartRepository.updateCart(food, count + 1);
         });
-        holder.removeItemTextView.setVisibility(View.INVISIBLE);
         holder.removeItemTextView.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.itemCountTextView.getText().toString());
             if (count == 1) {

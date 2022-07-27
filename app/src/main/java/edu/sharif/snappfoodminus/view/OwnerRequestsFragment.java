@@ -1,7 +1,6 @@
 package edu.sharif.snappfoodminus.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.adapter.RequestsAdapter;
-import edu.sharif.snappfoodminus.temp.Category;
 import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.LoginRepository;
 import edu.sharif.snappfoodminus.temp.Request;
@@ -38,7 +36,7 @@ public class OwnerRequestsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.requests_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.cart_items_rv);
         requests = Request.getRequestsByRequester(getContext(), LoginRepository.username);
         adapter = new RequestsAdapter(requests, getActivity());
         recyclerView.setAdapter(adapter);

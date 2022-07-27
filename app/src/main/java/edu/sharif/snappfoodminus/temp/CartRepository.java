@@ -1,6 +1,9 @@
 package edu.sharif.snappfoodminus.temp;
 
+import android.util.Log;
 import android.util.Pair;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -22,5 +25,6 @@ public class CartRepository {
             items.remove(idx);
         if (count > 0)
             items.add(new Pair<>(food, count));
+        Log.d("miu", new Gson().toJson(items));
     }
 }

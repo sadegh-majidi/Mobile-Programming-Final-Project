@@ -38,12 +38,12 @@ public class AdminCategoriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         controller = new AdminCategoriesController(getContext());
 
-        Button addButton = view.findViewById(R.id.add_category_button);
+        Button addButton = view.findViewById(R.id.order_button);
         addButton.setOnClickListener(v -> {
             getAddCategoryDialog().show();
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.requests_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.cart_items_rv);
         categories = Category.getAllCategories(getContext());
         adapter = new AdminCategoriesAdapter(categories, getActivity());
         recyclerView.setAdapter(adapter);

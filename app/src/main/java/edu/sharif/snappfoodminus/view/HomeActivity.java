@@ -52,18 +52,4 @@ public class HomeActivity extends AppCompatActivity {
         }
         sharedPreferences.edit().putBoolean("DarkModeJustChanged", false).apply();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.shopping_cart) {
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -4,9 +4,11 @@ import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.FoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
+import edu.sharif.snappfoodminus.temp.CartRepository;
 import edu.sharif.snappfoodminus.temp.Category;
 import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.Restaurant;
@@ -48,6 +51,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_page);
+
+        CartRepository.resetCart();
 
         sharedPreferences = getSharedPreferences(Shared_KEY, MODE_PRIVATE);
 
@@ -99,6 +104,14 @@ public class RestaurantPageActivity extends AppCompatActivity {
         foodsAdapter = new FoodsAdapter(foods);
         foodsRecyclerView.setAdapter(foodsAdapter);
         foodsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ImageView cartImageView = findViewById(R.id.cart_image_view);
+        cartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplication(), CartActivity.class));
+            }
+        });
     }
 
     private void handleCategorySelection(int position) {
