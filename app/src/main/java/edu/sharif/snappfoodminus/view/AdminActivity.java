@@ -32,6 +32,8 @@ public class AdminActivity extends AppCompatActivity {
             Fragment selectedFragment = new AdminCategoriesFragment();
             if (item.getItemId() == R.id.nav_requests)
                 selectedFragment = new AdminRequestsFragment();
+            if (item.getItemId() == R.id.nav_discounts)
+                selectedFragment = new AdminDiscountsFragment();
             if (item.getItemId() == R.id.nav_user_panel)
                 selectedFragment = new UserPanelFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();

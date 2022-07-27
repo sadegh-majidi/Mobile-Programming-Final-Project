@@ -1,4 +1,4 @@
-package edu.sharif.snappfoodminus.temp;
+package edu.sharif.snappfoodminus.model;
 
 import android.content.Context;
 

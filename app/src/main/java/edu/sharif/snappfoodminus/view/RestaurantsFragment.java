@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +22,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
-import edu.sharif.snappfoodminus.temp.Filter;
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.temp.Restaurant;
-import edu.sharif.snappfoodminus.temp.RestaurantRepository;
+import edu.sharif.snappfoodminus.model.Filter;
+import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.model.RestaurantRepository;
 
 public class RestaurantsFragment extends Fragment {
 

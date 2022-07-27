@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.Restaurant;
+import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.Restaurant;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
 

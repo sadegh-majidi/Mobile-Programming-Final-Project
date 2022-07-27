@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.adapter.RequestsAdapter;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.LoginRepository;
-import edu.sharif.snappfoodminus.temp.Request;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.LoginRepository;
+import edu.sharif.snappfoodminus.model.Request;
 
 public class OwnerRequestsFragment extends Fragment {
 
@@ -36,7 +36,7 @@ public class OwnerRequestsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.cart_items_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.discounts_rv);
         requests = Request.getRequestsByRequester(getContext(), LoginRepository.username);
         adapter = new RequestsAdapter(requests, getActivity());
         recyclerView.setAdapter(adapter);

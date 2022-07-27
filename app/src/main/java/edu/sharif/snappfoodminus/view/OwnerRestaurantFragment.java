@@ -30,13 +30,13 @@ import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.OwnerFoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.LoginRepository;
-import edu.sharif.snappfoodminus.temp.Request;
-import edu.sharif.snappfoodminus.temp.RequestStatus;
-import edu.sharif.snappfoodminus.temp.Restaurant;
-import edu.sharif.snappfoodminus.temp.User;
+import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.LoginRepository;
+import edu.sharif.snappfoodminus.model.Request;
+import edu.sharif.snappfoodminus.model.RequestStatus;
+import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.model.User;
 
 public class OwnerRestaurantFragment extends Fragment {
 

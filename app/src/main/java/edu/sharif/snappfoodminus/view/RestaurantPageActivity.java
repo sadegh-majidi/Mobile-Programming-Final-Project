@@ -25,11 +25,11 @@ import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.FoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
-import edu.sharif.snappfoodminus.temp.CartRepository;
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.Restaurant;
-import edu.sharif.snappfoodminus.temp.RestaurantRepository;
+import edu.sharif.snappfoodminus.model.CartRepository;
+import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.model.RestaurantRepository;
 
 public class RestaurantPageActivity extends AppCompatActivity {
 

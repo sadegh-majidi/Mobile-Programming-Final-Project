@@ -1,30 +1,18 @@
 package edu.sharif.snappfoodminus.model;
 
+import android.content.Context;
+
 public class LoginRepository {
+    public static String username;
 
-    private static LoginRepository instance;
-    private String username = null;
-
-    public static LoginRepository getInstance() {
-        if (instance == null)
-            instance = new LoginRepository();
-        return instance;
+    public static User getLoggedInUser(Context context) {
+        return User.getUserByUsername(context, username);
     }
 
-    public boolean isLoggedIn() {
-        return this.username != null;
+    public static Restaurant getLoggedInUserRestaurant(Context context) {
+        User user = getLoggedInUser(context);
+        if (user.role == Role.OWNER)
+            return Restaurant.getRestaurantByOwner(context, username);
+        return null;
     }
-
-    public void logIn(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void logOut() {
-        this.username = null;
-    }
-
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.temp.Category;
+import edu.sharif.snappfoodminus.model.Category;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
 

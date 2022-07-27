@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CartItemsAdapter;
-import edu.sharif.snappfoodminus.temp.CartRepository;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.Restaurant;
-import edu.sharif.snappfoodminus.temp.RestaurantRepository;
+import edu.sharif.snappfoodminus.model.CartRepository;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.model.RestaurantRepository;
 
 public class CartActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
@@ -25,7 +25,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_page);
 
-        RecyclerView itemsRecyclerView = findViewById(R.id.cart_items_rv);
+        RecyclerView itemsRecyclerView = findViewById(R.id.discounts_rv);
         ArrayList<Pair<Food, Integer>> items = CartRepository.items;
         CartItemsAdapter adapter = new CartItemsAdapter(items);
         itemsRecyclerView.setAdapter(adapter);

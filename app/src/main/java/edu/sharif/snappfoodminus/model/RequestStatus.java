@@ -1,4 +1,4 @@
-package edu.sharif.snappfoodminus.temp;
+package edu.sharif.snappfoodminus.model;
 
 public enum RequestStatus {
     ACCEPTED,

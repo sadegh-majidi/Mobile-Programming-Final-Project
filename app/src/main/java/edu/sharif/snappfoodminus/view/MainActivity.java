@@ -8,12 +8,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.repository.UserRepository;
-import edu.sharif.snappfoodminus.temp.Role;
-import edu.sharif.snappfoodminus.temp.User;
+import edu.sharif.snappfoodminus.model.Role;
+import edu.sharif.snappfoodminus.model.User;
 
 public class MainActivity extends AppCompatActivity {
 

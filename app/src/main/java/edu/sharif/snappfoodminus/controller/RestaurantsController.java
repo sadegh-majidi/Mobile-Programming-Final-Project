@@ -1,15 +1,12 @@
 package edu.sharif.snappfoodminus.controller;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import edu.sharif.snappfoodminus.temp.Filter;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.Restaurant;
+import edu.sharif.snappfoodminus.model.Filter;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.Restaurant;
 
 public class RestaurantsController {
 

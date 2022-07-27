@@ -6,30 +6,17 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
-import edu.sharif.snappfoodminus.temp.CartRepository;
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.LoginRepository;
-import edu.sharif.snappfoodminus.temp.Request;
-import edu.sharif.snappfoodminus.temp.RequestStatus;
-import edu.sharif.snappfoodminus.temp.Restaurant;
+import edu.sharif.snappfoodminus.model.CartRepository;
+import edu.sharif.snappfoodminus.model.Food;
 
 public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> {
 

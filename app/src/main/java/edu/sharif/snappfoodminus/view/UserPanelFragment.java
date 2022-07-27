@@ -21,13 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.UserController;
-import edu.sharif.snappfoodminus.temp.LoginRepository;
-import edu.sharif.snappfoodminus.temp.User;
+import edu.sharif.snappfoodminus.model.LoginRepository;
+import edu.sharif.snappfoodminus.model.User;
 
 public class UserPanelFragment extends Fragment {
 

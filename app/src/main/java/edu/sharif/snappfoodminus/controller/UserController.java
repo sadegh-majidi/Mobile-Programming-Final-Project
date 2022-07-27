@@ -9,8 +9,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import edu.sharif.snappfoodminus.temp.LoginRepository;
-import edu.sharif.snappfoodminus.temp.User;
+import edu.sharif.snappfoodminus.model.LoginRepository;
+import edu.sharif.snappfoodminus.model.User;
 import edu.sharif.snappfoodminus.view.MainActivity;
 
 public class UserController {

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
 import edu.sharif.snappfoodminus.controller.AdminCategoriesController;
-import edu.sharif.snappfoodminus.temp.Category;
+import edu.sharif.snappfoodminus.model.Category;
 
 public class AdminCategoriesFragment extends Fragment {
 
@@ -38,12 +38,12 @@ public class AdminCategoriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         controller = new AdminCategoriesController(getContext());
 
-        Button addButton = view.findViewById(R.id.order_button);
+        Button addButton = view.findViewById(R.id.add_discount_button);
         addButton.setOnClickListener(v -> {
             getAddCategoryDialog().show();
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.cart_items_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.discounts_rv);
         categories = Category.getAllCategories(getContext());
         adapter = new AdminCategoriesAdapter(categories, getActivity());
         recyclerView.setAdapter(adapter);

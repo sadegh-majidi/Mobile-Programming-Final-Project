@@ -1,87 +1,81 @@
 package edu.sharif.snappfoodminus.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
-import edu.sharif.snappfoodminus.Constants;
+import java.util.ArrayList;
 
-@Entity(
-        tableName = Constants.USER_TABLE_NAME,
-        indices = {
-                @Index(value = {"username"}, name = "user_unique_username_idx", unique = true)
-        }
-)
 public class User {
+    public String username;
+    public String password;
+    public String name;
+    public Role role;
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int id;
-
-    @ColumnInfo(name = "username")
-    @NonNull
-    private String username;
-
-    @ColumnInfo(name = "password")
-    @NonNull
-    private String password;
-
-    @ColumnInfo(name = "role")
-    @NonNull
-    private Role role;
-
-    @ColumnInfo(name = "name")
-    private String name;
-
-    public User(@NonNull String username, @NonNull String password, @NonNull Role role, String name) {
+    public User(String username, String password, String name, Role role) {
         this.username = username;
         this.password = password;
-        this.role = role;
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @NonNull
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(@NonNull String username) {
-        this.username = username;
-    }
-
-    @NonNull
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NonNull String password) {
-        this.password = password;
-    }
-
-    @NonNull
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(@NonNull Role role) {
         this.role = role;
     }
 
-    public String getName() {
-        return name;
+    public static void addUser(Context context, User user) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.USER_USERNAME, user.username);
+        contentValues.put(DBHelper.USER_PASSWORD, user.password);
+        contentValues.put(DBHelper.USER_NAME, user.name);
+        contentValues.put(DBHelper.USER_ROLE, user.role.name());
+        db.insert(DBHelper.USER_TABLE_NAME, null, contentValues);
+        db.close();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static void updateUser(Context context, User user, String key) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.USER_USERNAME, user.username);
+        contentValues.put(DBHelper.USER_PASSWORD, user.password);
+        contentValues.put(DBHelper.USER_NAME, user.name);
+        contentValues.put(DBHelper.USER_ROLE, user.role.name());
+        db.update(DBHelper.USER_TABLE_NAME, contentValues,
+                DBHelper.USER_USERNAME + "=?", new String[]{key});
+        db.close();
+    }
+
+    public static void deleteUser(Context context, String key) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        db.delete(DBHelper.USER_TABLE_NAME,
+                DBHelper.USER_USERNAME + "=?", new String[]{key});
+        db.close();
+    }
+
+    public static ArrayList<User> getAllUsers(Context context) {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        String query = "SELECT * FROM " + DBHelper.USER_TABLE_NAME;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                users.add(new User(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        Role.valueOf(cursor.getString(3))
+                ));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return users;
+    }
+
+    public static User getUserByUsername(Context context, String username) {
+        ArrayList<User> users = User.getAllUsers(context);
+        for (User user: users)
+            if (user.username.equals(username))
+                return user;
+        return null;
     }
 }

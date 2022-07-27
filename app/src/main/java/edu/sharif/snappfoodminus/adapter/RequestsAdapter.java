@@ -15,8 +15,8 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.temp.Food;
-import edu.sharif.snappfoodminus.temp.Request;
+import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.Request;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
 

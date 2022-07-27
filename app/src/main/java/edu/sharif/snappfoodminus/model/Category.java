@@ -1,41 +1,74 @@
 package edu.sharif.snappfoodminus.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
-import edu.sharif.snappfoodminus.Constants;
+import java.util.ArrayList;
 
-@Entity(tableName = Constants.CATEGORY_TABLE_NAME)
 public class Category {
+    public String name;
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int id;
-
-    @ColumnInfo(name = "name")
-    @NonNull
-    private String name;
-
-    public Category(@NonNull String name) {
+    public Category(String name) {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public static void addCategory(Context context, Category category) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.CATEGORY_NAME, category.name);
+        db.insert(DBHelper.CATEGORY_TABLE_NAME, null, contentValues);
+        db.close();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static void updateCategory(Context context, Category category, String key) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.CATEGORY_NAME, category.name);
+        db.update(DBHelper.CATEGORY_TABLE_NAME, contentValues,
+                DBHelper.CATEGORY_NAME + "=?", new String[]{key});
+        db.close();
     }
 
-    @NonNull
-    public String getName() {
-        return name;
+    public static void deleteCategory(Context context, String key) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        db.delete(DBHelper.CATEGORY_TABLE_NAME,
+                DBHelper.CATEGORY_NAME + "=?", new String[]{key});
+        db.close();
     }
 
-    public void setName(@NonNull String name) {
-        this.name = name;
+    public static ArrayList<Category> getAllCategories(Context context) {
+        ArrayList<Category> categories = new ArrayList<>();
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        String query = "SELECT * FROM " + DBHelper.CATEGORY_TABLE_NAME;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                categories.add(new Category(
+                        cursor.getString(0)
+                ));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return categories;
+    }
+
+    public static ArrayList<String> getAllCategoriesNames(Context context) {
+        ArrayList<Category> categories = getAllCategories(context);
+        ArrayList<String> result = new ArrayList<>();
+        for (Category category: categories)
+            result.add(category.name);
+        return result;
+    }
+
+    public static Category getCategoryByName(Context context, String name) {
+        ArrayList<Category> categories = Category.getAllCategories(context);
+        for (Category category: categories)
+            if (category.name.equals(name))
+                return category;
+        return null;
     }
 }

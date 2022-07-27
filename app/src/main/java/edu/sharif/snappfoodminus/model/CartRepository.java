@@ -1,9 +1,6 @@
-package edu.sharif.snappfoodminus.temp;
+package edu.sharif.snappfoodminus.model;
 
-import android.util.Log;
 import android.util.Pair;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
