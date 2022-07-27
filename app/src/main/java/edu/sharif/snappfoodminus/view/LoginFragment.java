@@ -92,7 +92,6 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Incorrect username or password",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    // TODO: Login for owner or admin
                     LoginRepository.username = user.username;
                     User loggedInUser = LoginRepository.getLoggedInUser(getContext());
                     if (loggedInUser.role == Role.ADMIN)

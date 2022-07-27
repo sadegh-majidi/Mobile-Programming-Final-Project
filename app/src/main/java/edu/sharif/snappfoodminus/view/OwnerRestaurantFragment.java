@@ -3,7 +3,6 @@ package edu.sharif.snappfoodminus.view;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +130,7 @@ public class OwnerRestaurantFragment extends Fragment {
         for (int i = 0; i < categoriesRecyclerView.getChildCount(); i++) {
             final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
                     categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(i));
-            TextView nameTextView = holder.itemView.findViewById(R.id.categoryNameTextView);
+            TextView nameTextView = holder.itemView.findViewById(R.id.food_name_text_view);
             if (nameTextView.getText().toString().equals(currentCategory)) {
                 holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
                 nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.coloredBorder));

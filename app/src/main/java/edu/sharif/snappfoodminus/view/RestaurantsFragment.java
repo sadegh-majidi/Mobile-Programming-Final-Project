@@ -2,6 +2,7 @@ package edu.sharif.snappfoodminus.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.adapter.RestaurantsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.temp.Filter;
 import edu.sharif.snappfoodminus.temp.Category;
 import edu.sharif.snappfoodminus.temp.Restaurant;
+import edu.sharif.snappfoodminus.temp.RestaurantRepository;
 
 public class RestaurantsFragment extends Fragment {
 
@@ -65,6 +68,19 @@ public class RestaurantsFragment extends Fragment {
         adapter = new RestaurantsAdapter(restaurants);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener
+                (getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                RestaurantRepository.name = restaurants.get(position).name;
+                startActivity(new Intent(getActivity(), RestaurantPageActivity.class));
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
     }
 
     private ArrayList<Filter> initFilters() {

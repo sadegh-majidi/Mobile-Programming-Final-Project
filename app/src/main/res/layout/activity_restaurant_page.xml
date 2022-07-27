@@ -39,13 +39,6 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/edit_restaurant_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            app:srcCompat="@drawable/ic_edit" />
-
     </LinearLayout>
 
     <View
@@ -95,12 +88,6 @@
         <Space
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/edit_shipping_cost"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:srcCompat="@drawable/ic_edit" />
 
         <Space
             android:layout_width="0dp"

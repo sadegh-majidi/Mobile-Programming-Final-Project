@@ -24,6 +24,7 @@
         <activity android:name=".view.AdminActivity" />
         <activity android:name=".view.OwnerActivity" />
         <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.RestaurantPageActivity" />
     </application>
 
 </manifest>
