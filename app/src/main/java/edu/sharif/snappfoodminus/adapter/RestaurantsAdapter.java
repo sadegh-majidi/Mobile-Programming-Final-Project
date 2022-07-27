@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.temp.Category;
+import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.Restaurant;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
@@ -34,10 +36,17 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurant restaurant = mRestaurants.get(position);
+        Context context = holder.itemView.getContext();
         holder.nameTextView.setText(restaurant.name);
-        // TODO: methods for getting restaurant categories, shipping cost, and average rate
-//        holder.categoriesTextView.setText("");
-//        holder.shippingCostTextView.setText("");
+        ArrayList<String> categoriesNames = new ArrayList<>();
+        for (Category category: Category.getAllCategories(context))
+            if (!Food.getFoodsByRestaurantAndCategory(context, restaurant.name, category.name).isEmpty())
+                if (!categoriesNames.contains(category.name))
+                    categoriesNames.add(category.name);
+        holder.categoriesTextView.setText(String.join(", ", categoriesNames));
+        int shippingCost = restaurant.shippingCost;
+        holder.shippingCostTextView.setText(shippingCost == 0 ? "Free" : ("$" + shippingCost));
+        // TODO: handle rate
 //        holder.rateTextView.setText("");
     }
 

@@ -1,4 +1,4 @@
-package edu.sharif.snappfoodminus.model;
+package edu.sharif.snappfoodminus.temp;
 
 public class Filter {
 

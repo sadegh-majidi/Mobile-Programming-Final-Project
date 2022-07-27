@@ -1,16 +1,14 @@
 package edu.sharif.snappfoodminus.controller;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import edu.sharif.snappfoodminus.temp.Category;
-import edu.sharif.snappfoodminus.model.Filter;
-import edu.sharif.snappfoodminus.temp.DBHelper;
+import edu.sharif.snappfoodminus.temp.Filter;
+import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.Restaurant;
 
 public class RestaurantsController {
@@ -22,8 +20,15 @@ public class RestaurantsController {
     }
 
     public ArrayList<Restaurant> getFilteredRestaurants(ArrayList<Filter> filters) {
-        // TODO: get all filtered restaurants
-        // For now:
-        return Restaurant.getAllRestaurants(context);
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        for (Restaurant restaurant: Restaurant.getAllRestaurants(context)) {
+            boolean valid = false;
+            for (Filter filter: filters)
+                if (filter.state && !Food.getFoodsByRestaurantAndCategory(context, restaurant.name, filter.category).isEmpty())
+                    valid = true;
+            if (valid)
+                restaurants.add(restaurant);
+        }
+        return restaurants;
     }
 }
