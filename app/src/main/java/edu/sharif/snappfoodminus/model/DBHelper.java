@@ -94,6 +94,18 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String REQUEST_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + REQUEST_TABLE_NAME + ";";
 
+    public static final String DISCOUNT_TABLE_NAME = "discount";
+    public static final String DISCOUNT_RESTAURANT = "restaurant";
+    public static final String DISCOUNT_PERCENTAGE = "percentage";
+    private static final String DISCOUNT_CREATE_TABLE_QUERY =
+            "CREATE TABLE " + DISCOUNT_TABLE_NAME + " (" +
+                    DISCOUNT_RESTAURANT + " TEXT PRIMARY KEY, " +
+                    DISCOUNT_PERCENTAGE + " INTEGER, " +
+                    "FOREIGN KEY (" + DISCOUNT_RESTAURANT + ") " +
+                    "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE);";
+    private static final String DISCOUNT_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + DISCOUNT_TABLE_NAME + ";";
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -106,10 +118,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(RESTAURANT_CREATE_TABLE_QUERY);
         db.execSQL(FOOD_CREATE_TABLE_QUERY);
         db.execSQL(REQUEST_CREATE_TABLE_QUERY);
+        db.execSQL(DISCOUNT_CREATE_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(DISCOUNT_DROP_TABLE_QUERY);
         db.execSQL(REQUEST_DROP_TABLE_QUERY);
         db.execSQL(FOOD_DROP_TABLE_QUERY);
         db.execSQL(RESTAURANT_DROP_TABLE_QUERY);
