@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -106,11 +107,11 @@ public class RestaurantPageActivity extends AppCompatActivity {
         foodsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ImageView cartImageView = findViewById(R.id.cart_image_view);
-        cartImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cartImageView.setOnClickListener(v -> {
+            if (CartRepository.items.isEmpty())
+                Toast.makeText(this, "No item to order", Toast.LENGTH_LONG).show();
+            else
                 startActivity(new Intent(getApplication(), CartActivity.class));
-            }
         });
     }
 

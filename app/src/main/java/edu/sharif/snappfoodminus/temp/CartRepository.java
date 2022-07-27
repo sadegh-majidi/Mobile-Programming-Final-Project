@@ -9,9 +9,11 @@ import java.util.ArrayList;
 
 public class CartRepository {
     public static ArrayList<Pair<Food, Integer>> items;
+    public static int totalPrice;
 
     public static void resetCart() {
         items = new ArrayList<>();
+        totalPrice = 0;
     }
 
     public static void updateCart(Food food, int count) {
@@ -21,10 +23,13 @@ public class CartRepository {
             if (item.first.name.equals(food.name))
                 idx = i;
         }
-        if (idx != -1)
+        if (idx != -1) {
+            totalPrice -= items.get(idx).second * items.get(idx).first.price;
             items.remove(idx);
-        if (count > 0)
+        }
+        if (count > 0) {
             items.add(new Pair<>(food, count));
-        Log.d("miu", new Gson().toJson(items));
+            totalPrice += count * food.price;
+        }
     }
 }
