@@ -15,13 +15,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Category Name"
+        android:text="Restaurant Name"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/percentageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="100%"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/discountDeleteImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -34,13 +44,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete" />
 
-    <ImageView
-        android:id="@+id/categoryEditImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/discountDeleteImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

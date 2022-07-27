@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.UserController;
+import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.LoginRepository;
 import edu.sharif.snappfoodminus.model.Role;
 import edu.sharif.snappfoodminus.model.User;
@@ -92,6 +96,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Incorrect username or password",
                             Toast.LENGTH_LONG).show();
                 } else {
+                    Log.d("miu", new Gson().toJson(Discount.getAllDiscounts(getContext())));
                     LoginRepository.username = user.username;
                     User loggedInUser = LoginRepository.getLoggedInUser(getContext());
                     if (loggedInUser.role == Role.ADMIN)

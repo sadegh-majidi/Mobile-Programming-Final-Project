@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CartItemsAdapter;
 import edu.sharif.snappfoodminus.model.CartRepository;
+import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.Food;
 import edu.sharif.snappfoodminus.model.Restaurant;
 import edu.sharif.snappfoodminus.model.RestaurantRepository;
@@ -38,5 +39,14 @@ public class CartActivity extends AppCompatActivity {
 
         TextView shippingCostTextView = findViewById(R.id.shipping_cost_text_view);
         shippingCostTextView.setText("$" + restaurant.shippingCost);
+
+        TextView discountTextView = findViewById(R.id.discount_text_view);
+        Discount discount = Discount.getDiscountByRestaurant(this, restaurant.name);
+        int discountInt = (discount == null ? 0 : discount.percentage * CartRepository.totalPrice) / 100;
+        discountTextView.setText("$" + discountInt);
+
+        TextView toPayTextView = findViewById(R.id.to_pay_text_view);
+        int to_pay = CartRepository.totalPrice + restaurant.shippingCost - discountInt;
+        toPayTextView.setText("$" + to_pay);
     }
 }
