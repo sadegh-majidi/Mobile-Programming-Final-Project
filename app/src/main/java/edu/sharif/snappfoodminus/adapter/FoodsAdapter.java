@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
+import edu.sharif.snappfoodminus.temp.CartRepository;
 import edu.sharif.snappfoodminus.temp.Category;
 import edu.sharif.snappfoodminus.temp.Food;
 import edu.sharif.snappfoodminus.temp.LoginRepository;
@@ -55,15 +56,16 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> 
         holder.descriptionTextView.setText(food.description);
         holder.itemCountTextView.setVisibility(View.INVISIBLE);
         holder.addItemTextView.setOnClickListener(v -> {
+            int count = Integer.parseInt(holder.itemCountTextView.getText().toString());
             if (holder.zeroCount) {
                 holder.itemCountTextView.setText("1");
                 holder.itemCountTextView.setVisibility(View.VISIBLE);
                 holder.removeItemTextView.setVisibility(View.VISIBLE);
                 holder.zeroCount = false;
             } else {
-                int count = Integer.parseInt(holder.itemCountTextView.getText().toString());
                 holder.itemCountTextView.setText(String.valueOf(count + 1));
             }
+            CartRepository.updateCart(food, count + 1);
         });
         holder.removeItemTextView.setVisibility(View.INVISIBLE);
         holder.removeItemTextView.setOnClickListener(v -> {
@@ -76,9 +78,8 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> 
             } else {
                 holder.itemCountTextView.setText(String.valueOf(count - 1));
             }
+            CartRepository.updateCart(food, count - 1);
         });
-
-
     }
 
     @Override
