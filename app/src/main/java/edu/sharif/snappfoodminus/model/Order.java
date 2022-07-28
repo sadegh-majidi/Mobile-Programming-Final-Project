@@ -38,7 +38,6 @@ public class Order {
     public static void addOrder(Context context, Order order) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.ORDER_ID, order.id);
         contentValues.put(DBHelper.ORDER_CUSTOMER, order.customer);
         contentValues.put(DBHelper.ORDER_RESTAURANT, order.restaurant);
         contentValues.put(DBHelper.ORDER_ITEMS, new Gson().toJson(order.items));
@@ -46,7 +45,24 @@ public class Order {
         contentValues.put(DBHelper.ORDER_DISCOUNT, order.discount);
         contentValues.put(DBHelper.ORDER_SHIPPING_COST, order.shippingCost);
         contentValues.put(DBHelper.ORDER_TO_PAY, order.toPay);
+        contentValues.put(DBHelper.ORDER_REVIEW_ID, order.reviewID);
         db.insert(DBHelper.ORDER_TABLE_NAME, null, contentValues);
+        db.close();
+    }
+
+    public static void updateOrder(Context context, Order order, String key) {
+        SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.ORDER_CUSTOMER, order.customer);
+        contentValues.put(DBHelper.ORDER_RESTAURANT, order.restaurant);
+        contentValues.put(DBHelper.ORDER_ITEMS, new Gson().toJson(order.items));
+        contentValues.put(DBHelper.ORDER_TOTAL_PRICE, order.totalPrice);
+        contentValues.put(DBHelper.ORDER_DISCOUNT, order.discount);
+        contentValues.put(DBHelper.ORDER_SHIPPING_COST, order.shippingCost);
+        contentValues.put(DBHelper.ORDER_TO_PAY, order.toPay);
+        contentValues.put(DBHelper.ORDER_REVIEW_ID, order.reviewID);
+        db.update(DBHelper.ORDER_TABLE_NAME, contentValues,
+                DBHelper.ORDER_ID + "=?", new String[]{key});
         db.close();
     }
 

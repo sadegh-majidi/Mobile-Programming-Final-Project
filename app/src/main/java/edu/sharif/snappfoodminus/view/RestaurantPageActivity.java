@@ -121,7 +121,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
         for (int i = 0; i < categoriesRecyclerView.getChildCount(); i++) {
             final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
                     categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(i));
-            TextView nameTextView = holder.itemView.findViewById(R.id.food_name_text_view);
+            TextView nameTextView = holder.itemView.findViewById(R.id.restaurant_text_view);
             if (nameTextView.getText().toString().equals(currentCategory)) {
                 holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
                 nameTextView.setTextColor(ContextCompat.getColor(this, R.color.coloredBorder));

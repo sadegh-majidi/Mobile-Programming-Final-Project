@@ -1,7 +1,6 @@
 package edu.sharif.snappfoodminus.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
-import edu.sharif.snappfoodminus.adapter.AdminCategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.AdminDiscountsAdapter;
-import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.Restaurant;
 
@@ -39,13 +36,13 @@ public class AdminDiscountsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.discounts_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.orders_rv);
         discounts = Discount.getAllDiscounts(getContext());
         discountsAdapter = new AdminDiscountsAdapter(discounts);
         recyclerView.setAdapter(discountsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Button addDiscountButton = view.findViewById(R.id.add_discount_button);
+        Button addDiscountButton = view.findViewById(R.id.order_button);
         addDiscountButton.setOnClickListener(v -> showAddDiscountDialog());
     }
 

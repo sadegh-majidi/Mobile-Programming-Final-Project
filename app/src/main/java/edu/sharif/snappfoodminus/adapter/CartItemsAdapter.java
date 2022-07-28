@@ -58,7 +58,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-            foodNameTextView = itemView.findViewById(R.id.food_name_text_view);
+            foodNameTextView = itemView.findViewById(R.id.restaurant_text_view);
             countTextView = itemView.findViewById(R.id.count_text_view);
             priceTextView = itemView.findViewById(R.id.price_text_view);
             totalPriceTextView = itemView.findViewById(R.id.sum_price_text_view);
