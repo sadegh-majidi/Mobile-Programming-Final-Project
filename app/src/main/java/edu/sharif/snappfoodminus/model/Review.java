@@ -22,7 +22,6 @@ public class Review {
     public static void addReview(Context context, Review review) {
         SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.REVIEW_ID, review.id);
         contentValues.put(DBHelper.REVIEW_RATE, review.rate);
         contentValues.put(DBHelper.REVIEW_DESCRIPTION, review.description);
         db.insert(DBHelper.REVIEW_TABLE_NAME, null, contentValues);
