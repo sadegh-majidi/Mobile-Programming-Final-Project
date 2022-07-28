@@ -55,7 +55,7 @@ public class CustomerOrdersAdapter extends RecyclerView.Adapter<CustomerOrdersAd
             else if (review.rate == 5)
                 holder.rateTextView.setText("★★★★★");
         } else {
-            holder.rateTextView.setText("Not Rated");
+            holder.rateTextView.setText("NOT RATED");
         }
     }
 

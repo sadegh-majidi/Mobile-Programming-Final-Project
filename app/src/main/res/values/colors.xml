@@ -12,4 +12,5 @@
     <color name="recyclerViewItemBG">#F5F5F5</color>
     <color name="customEditText">#ECECEC</color>
     <color name="iconColor">#FF6200EE</color>
+    <color name="buttonTextColor">#EEEEEE</color>
 </resources>

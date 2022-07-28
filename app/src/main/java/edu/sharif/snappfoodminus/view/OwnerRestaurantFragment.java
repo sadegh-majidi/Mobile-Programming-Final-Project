@@ -97,21 +97,21 @@ public class OwnerRestaurantFragment extends Fragment {
         categoriesRecyclerView.setAdapter(categoriesAdapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         categoriesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener
-                (getContext(),categoriesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onItemClick(View view, int position) {
-                handleCategorySelection(position);
-                foods.clear();
-                foods.addAll(Food.getFoodsByRestaurantAndCategory(getContext(), restaurant.name, currentCategory));
-                foodsAdapter.notifyDataSetChanged();
-            }
+                (getContext(), categoriesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        handleCategorySelection(position);
+                        foods.clear();
+                        foods.addAll(Food.getFoodsByRestaurantAndCategory(getContext(), restaurant.name, currentCategory));
+                        foodsAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
 
-            }
-        }));
+                    }
+                }));
         categoriesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

@@ -5,4 +5,5 @@
     <color name="recyclerViewItemBG">#202020</color>
     <color name="customEditText">#4A4A4A</color>
     <color name="iconColor">#FFBB86FC</color>
+    <color name="buttonTextColor">#000000</color>
 </resources>
