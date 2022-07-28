@@ -12,19 +12,17 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical"
-        android:padding="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.351">
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/usernameLoginText"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -39,7 +37,7 @@
         <EditText
             android:id="@+id/passwordLoginText"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edittext"
             android:ems="10"
@@ -50,8 +48,10 @@
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:text="Login" />
+            android:layout_height="50dp"
+            android:background="@drawable/bg_colored_border"
+            android:text="Login"
+            android:textColor="@color/buttonTextColor" />
 
     </LinearLayout>
 
@@ -60,47 +60,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174"
-        android:padding="30dp"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login Page"
+            android:text="Login"
             android:textSize="48sp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Never worry about food ever again!" />
+            android:text="Never worry about food ever again!"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
-        android:padding="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.945">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="don't have an account?" />
+            android:text="Don't have an account? " />
 
         <TextView
             android:id="@+id/registerLinkText"
@@ -108,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Register"
-            android:textColor="#3492eb" />
+            android:textColor="@color/iconColor" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
