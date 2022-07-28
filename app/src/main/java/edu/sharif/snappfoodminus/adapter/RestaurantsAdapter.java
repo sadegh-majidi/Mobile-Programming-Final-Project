@@ -1,5 +1,6 @@
 package edu.sharif.snappfoodminus.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.model.Category;
+import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.Food;
 import edu.sharif.snappfoodminus.model.Restaurant;
 
@@ -33,6 +35,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurant restaurant = mRestaurants.get(position);
@@ -46,6 +49,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.categoriesTextView.setText(String.join(", ", categoriesNames));
         int shippingCost = restaurant.shippingCost;
         holder.shippingCostTextView.setText(shippingCost == 0 ? "Free" : ("$" + shippingCost));
+        Discount discount = Discount.getDiscountByRestaurant(context, restaurant.name);
+        if (discount == null)
+            holder.percentageTextView.setText("");
+        else
+            holder.percentageTextView.setText(discount.percentage + "%");
         // TODO: handle rate
 //        holder.rateTextView.setText("");
     }
@@ -60,6 +68,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public TextView categoriesTextView;
         public TextView shippingCostTextView;
         public TextView rateTextView;
+        public TextView percentageTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +76,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             categoriesTextView = itemView.findViewById(R.id.categories_textview);
             shippingCostTextView = itemView.findViewById(R.id.shipping_cost);
             rateTextView = itemView.findViewById(R.id.rate);
+            percentageTextView = itemView.findViewById(R.id.discount_percentage_text_view);
         }
     }
 }
