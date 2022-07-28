@@ -107,6 +107,48 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DISCOUNT_DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + DISCOUNT_TABLE_NAME + ";";
 
+    public static final String REVIEW_TABLE_NAME = "_review";
+    public static final String REVIEW_ID = "id";
+    public static final String REVIEW_RATE = "rate";
+    public static final String REVIEW_DESCRIPTION = "description";
+    private static final String REVIEW_CREATE_TABLE_QUERY =
+            "CREATE TABLE " + REVIEW_TABLE_NAME + " (" +
+                    REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    REVIEW_RATE + " TEXT, " +
+                    REVIEW_DESCRIPTION + " TEXT);";
+    private static final String REVIEW_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + REVIEW_TABLE_NAME + ";";
+
+    public static final String ORDER_TABLE_NAME = "_order";
+    public static final String ORDER_ID = "id";
+    public static final String ORDER_CUSTOMER = "customer";
+    public static final String ORDER_RESTAURANT = "restaurant";
+    public static final String ORDER_ITEMS = "items";
+    public static final String ORDER_TOTAL_PRICE = "total_price";
+    public static final String ORDER_DISCOUNT = "discount";
+    public static final String ORDER_SHIPPING_COST = "shipping_cost";
+    public static final String ORDER_TO_PAY = "to_pay";
+    public static final String ORDER_REVIEW_ID = "review";
+    private static final String ORDER_CREATE_TABLE_QUERY =
+            "CREATE TABLE " + ORDER_TABLE_NAME + " (" +
+                    ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    ORDER_CUSTOMER + " TEXT, " +
+                    ORDER_RESTAURANT + " TEXT, " +
+                    ORDER_ITEMS + " TEXT, " +
+                    ORDER_TOTAL_PRICE + " INTEGER, " +
+                    ORDER_DISCOUNT + " INTEGER, " +
+                    ORDER_SHIPPING_COST + " INTEGER, " +
+                    ORDER_TO_PAY + " INTEGER, " +
+                    ORDER_REVIEW_ID + " INTEGER, " +
+                    "FOREIGN KEY (" + ORDER_RESTAURANT + ") " +
+                    "REFERENCES " + RESTAURANT_TABLE_NAME + "(" + RESTAURANT_NAME + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "FOREIGN KEY (" + ORDER_REVIEW_ID + ") " +
+                    "REFERENCES " + REVIEW_TABLE_NAME + "(" + REVIEW_ID + ") " +
+                    "ON DELETE CASCADE ON UPDATE CASCADE);";
+    private static final String ORDER_DROP_TABLE_QUERY =
+            "DROP TABLE IF EXISTS " + ORDER_TABLE_NAME + ";";
+
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -119,10 +161,14 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(FOOD_CREATE_TABLE_QUERY);
         db.execSQL(REQUEST_CREATE_TABLE_QUERY);
         db.execSQL(DISCOUNT_CREATE_TABLE_QUERY);
+        db.execSQL(REVIEW_CREATE_TABLE_QUERY);
+        db.execSQL(ORDER_CREATE_TABLE_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(ORDER_DROP_TABLE_QUERY);
+        db.execSQL(REVIEW_DROP_TABLE_QUERY);
         db.execSQL(DISCOUNT_DROP_TABLE_QUERY);
         db.execSQL(REQUEST_DROP_TABLE_QUERY);
         db.execSQL(FOOD_DROP_TABLE_QUERY);
