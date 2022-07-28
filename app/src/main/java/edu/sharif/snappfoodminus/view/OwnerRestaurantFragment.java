@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
@@ -30,6 +31,7 @@ import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.OwnerFoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
+import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Food;
 import edu.sharif.snappfoodminus.model.LoginRepository;
@@ -122,6 +124,10 @@ public class OwnerRestaurantFragment extends Fragment {
         addItemImageView.setOnClickListener(v -> {
             showAddItemDialog();
         });
+
+        TextView rateTextView = view.findViewById(R.id.rate);
+        String rate = new RestaurantsController(getContext()).getRestaurantRateText(restaurant.name);
+        rateTextView.setText(rate);
     }
 
     private void handleCategorySelection(int position) {

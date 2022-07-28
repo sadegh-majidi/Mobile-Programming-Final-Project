@@ -19,12 +19,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.FoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
+import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.CartRepository;
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Food;
@@ -113,6 +115,10 @@ public class RestaurantPageActivity extends AppCompatActivity {
             else
                 startActivity(new Intent(getApplication(), CartActivity.class));
         });
+
+        TextView rateTextView = findViewById(R.id.rate);
+        String rate = new RestaurantsController(this).getRestaurantRateText(restaurant.name);
+        rateTextView.setText(rate);
     }
 
     private void handleCategorySelection(int position) {

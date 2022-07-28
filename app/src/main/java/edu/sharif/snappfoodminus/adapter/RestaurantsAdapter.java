@@ -10,9 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.Food;
@@ -54,8 +56,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             holder.percentageTextView.setText("");
         else
             holder.percentageTextView.setText(discount.percentage + "%");
-        // TODO: handle rate
-//        holder.rateTextView.setText("");
+
+        String rate = new RestaurantsController(context).getRestaurantRateText(restaurant.name);
+        holder.rateTextView.setText(rate);
     }
 
     @Override
