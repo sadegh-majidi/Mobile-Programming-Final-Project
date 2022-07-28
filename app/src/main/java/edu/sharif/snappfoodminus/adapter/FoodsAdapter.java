@@ -99,8 +99,8 @@ public class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.restaurant_text_view);
-            priceTextView = itemView.findViewById(R.id.price_text_view);
+            nameTextView = itemView.findViewById(R.id.customer_text_view);
+            priceTextView = itemView.findViewById(R.id.rate_text_view);
             descriptionTextView = itemView.findViewById(R.id.description_text_view);
             itemCountTextView = itemView.findViewById(R.id.item_count_text_view);
             addItemTextView = itemView.findViewById(R.id.add_item_image_view);

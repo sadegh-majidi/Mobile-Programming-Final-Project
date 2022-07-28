@@ -36,7 +36,7 @@ public class OwnerRequestsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.orders_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.reviews_rv);
         requests = Request.getRequestsByRequester(getContext(), LoginRepository.username);
         adapter = new RequestsAdapter(requests, getActivity());
         recyclerView.setAdapter(adapter);

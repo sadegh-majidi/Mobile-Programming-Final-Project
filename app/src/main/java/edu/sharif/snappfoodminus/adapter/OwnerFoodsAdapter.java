@@ -148,7 +148,7 @@ public class OwnerFoodsAdapter extends RecyclerView.Adapter<OwnerFoodsAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.restaurant_text_view);
+            nameTextView = itemView.findViewById(R.id.customer_text_view);
             editImageView = itemView.findViewById(R.id.editImageView);
             deleteImageView = itemView.findViewById(R.id.deleteImageView);
         }

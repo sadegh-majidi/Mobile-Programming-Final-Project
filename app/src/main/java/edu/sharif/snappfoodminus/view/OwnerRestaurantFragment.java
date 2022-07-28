@@ -3,14 +3,17 @@ package edu.sharif.snappfoodminus.view;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,21 +26,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
+import edu.sharif.snappfoodminus.adapter.CartItemsAdapter;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.OwnerFoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
+import edu.sharif.snappfoodminus.adapter.ReviewsAdapter;
 import edu.sharif.snappfoodminus.controller.OwnerRestaurantController;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Food;
 import edu.sharif.snappfoodminus.model.LoginRepository;
+import edu.sharif.snappfoodminus.model.Order;
 import edu.sharif.snappfoodminus.model.Request;
 import edu.sharif.snappfoodminus.model.RequestStatus;
 import edu.sharif.snappfoodminus.model.Restaurant;
+import edu.sharif.snappfoodminus.model.Review;
 import edu.sharif.snappfoodminus.model.User;
 
 public class OwnerRestaurantFragment extends Fragment {
@@ -128,6 +134,9 @@ public class OwnerRestaurantFragment extends Fragment {
         TextView rateTextView = view.findViewById(R.id.rate);
         String rate = new RestaurantsController(getContext()).getRestaurantRateText(restaurant.name);
         rateTextView.setText(rate);
+
+        TextView reviewsTextView = view.findViewById(R.id.watch_reviews_text_view);
+        reviewsTextView.setOnClickListener(v -> showReviewsDialog());
     }
 
     private void handleCategorySelection(int position) {
@@ -136,7 +145,7 @@ public class OwnerRestaurantFragment extends Fragment {
         for (int i = 0; i < categoriesRecyclerView.getChildCount(); i++) {
             final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
                     categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(i));
-            TextView nameTextView = holder.itemView.findViewById(R.id.restaurant_text_view);
+            TextView nameTextView = holder.itemView.findViewById(R.id.customer_text_view);
             if (nameTextView.getText().toString().equals(currentCategory)) {
                 holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
                 nameTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.coloredBorder));
@@ -266,6 +275,21 @@ public class OwnerRestaurantFragment extends Fragment {
             dialog.dismiss();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void showReviewsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final View view = getLayoutInflater().inflate(R.layout.layout_review_page, null);
+        RecyclerView reviewsRecyclerView = view.findViewById(R.id.reviews_rv);
+        String restaurantName = Restaurant.getRestaurantByOwner(getContext(), LoginRepository.username).name;
+        ArrayList<Review> reviews = Review.getReviewsByRestaurant(getContext(), restaurantName);
+        ReviewsAdapter reviewsAdapter = new ReviewsAdapter(reviews);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        builder.setTitle("Reviews");
+        builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

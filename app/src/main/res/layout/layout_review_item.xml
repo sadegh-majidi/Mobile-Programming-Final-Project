@@ -14,6 +14,7 @@
         android:id="@+id/linearLayout6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,14 +24,23 @@
             android:id="@+id/customer_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Food Name"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="Customer"
+            android:textSize="14sp" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/add_item_image_view2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_star" />
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/rate_text_view"
@@ -38,39 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center|right"
-            android:text="Price"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
-
-        <ImageView
-            android:id="@+id/remove_item_image_view"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:srcCompat="@drawable/ic_remove" />
-
-        <TextView
-            android:id="@+id/item_count_text_view"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="0"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/add_item_image_view"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:srcCompat="@drawable/ic_add" />
+            android:text="NEW"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
@@ -78,10 +57,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="Description"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider9" />
+
+    <View
+        android:id="@+id/divider9"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 

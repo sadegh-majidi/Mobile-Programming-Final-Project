@@ -2,7 +2,6 @@ package edu.sharif.snappfoodminus.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,23 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CartItemsAdapter;
 import edu.sharif.snappfoodminus.adapter.CustomerOrdersAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
-import edu.sharif.snappfoodminus.adapter.RequestsAdapter;
-import edu.sharif.snappfoodminus.model.CartRepository;
-import edu.sharif.snappfoodminus.model.Discount;
 import edu.sharif.snappfoodminus.model.Food;
 import edu.sharif.snappfoodminus.model.LoginRepository;
 import edu.sharif.snappfoodminus.model.Order;
-import edu.sharif.snappfoodminus.model.Request;
-import edu.sharif.snappfoodminus.model.Restaurant;
-import edu.sharif.snappfoodminus.model.RestaurantRepository;
 import edu.sharif.snappfoodminus.model.Review;
 
 public class OrderHistoryFragment extends Fragment {
@@ -51,7 +41,7 @@ public class OrderHistoryFragment extends Fragment {
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.orders_rv);
+        recyclerView = view.findViewById(R.id.reviews_rv);
         orders = Order.getOrdersByCustomer(getContext(), LoginRepository.username);
         adapter = new CustomerOrdersAdapter(orders, getActivity());
         recyclerView.setAdapter(adapter);
@@ -76,7 +66,7 @@ public class OrderHistoryFragment extends Fragment {
         Order order = orders.get(position);
 
         // Order info
-        RecyclerView itemsRecyclerView = view.findViewById(R.id.orders_rv);
+        RecyclerView itemsRecyclerView = view.findViewById(R.id.reviews_rv);
         ArrayList<Pair<Food, Integer>> items = order.items;
         CartItemsAdapter cartItemsAdapter = new CartItemsAdapter(items);
         itemsRecyclerView.setAdapter(cartItemsAdapter);

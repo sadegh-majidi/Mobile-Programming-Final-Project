@@ -36,7 +36,7 @@ public class AdminDiscountsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.orders_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.reviews_rv);
         discounts = Discount.getAllDiscounts(getContext());
         discountsAdapter = new AdminDiscountsAdapter(discounts);
         recyclerView.setAdapter(discountsAdapter);

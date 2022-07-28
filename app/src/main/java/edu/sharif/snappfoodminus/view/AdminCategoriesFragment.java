@@ -43,7 +43,7 @@ public class AdminCategoriesFragment extends Fragment {
             getAddCategoryDialog().show();
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.orders_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.reviews_rv);
         categories = Category.getAllCategories(getContext());
         adapter = new AdminCategoriesAdapter(categories, getActivity());
         recyclerView.setAdapter(adapter);

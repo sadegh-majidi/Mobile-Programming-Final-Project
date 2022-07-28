@@ -34,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_page);
 
-        RecyclerView itemsRecyclerView = findViewById(R.id.orders_rv);
+        RecyclerView itemsRecyclerView = findViewById(R.id.reviews_rv);
         ArrayList<Pair<Food, Integer>> items = CartRepository.items;
         CartItemsAdapter adapter = new CartItemsAdapter(items);
         itemsRecyclerView.setAdapter(adapter);

@@ -56,7 +56,7 @@ public class Review {
 
     public static Review getReviewByID(Context context, int id) {
         ArrayList<Review> reviews = getAllReviews(context);
-        for (Review review: reviews)
+        for (Review review : reviews)
             if (review.id == id)
                 return review;
         return null;
@@ -69,5 +69,13 @@ public class Review {
             if (order.reviewID != null)
                 result.add(getReviewByID(context, order.reviewID));
         return result;
+    }
+
+    public static String getCustomerByReviewID(Context context, int reviewID) {
+        ArrayList<Order> orders = Order.getAllOrders(context);
+        for (Order order : orders)
+            if (order.reviewID == reviewID)
+                return order.customer;
+        return null;
     }
 }

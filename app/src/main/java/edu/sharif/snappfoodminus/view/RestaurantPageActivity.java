@@ -13,25 +13,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import edu.sharif.snappfoodminus.R;
 import edu.sharif.snappfoodminus.adapter.CategoriesAdapter;
 import edu.sharif.snappfoodminus.adapter.FoodsAdapter;
 import edu.sharif.snappfoodminus.adapter.RecyclerItemClickListener;
+import edu.sharif.snappfoodminus.adapter.ReviewsAdapter;
 import edu.sharif.snappfoodminus.controller.RestaurantsController;
 import edu.sharif.snappfoodminus.model.CartRepository;
 import edu.sharif.snappfoodminus.model.Category;
 import edu.sharif.snappfoodminus.model.Food;
+import edu.sharif.snappfoodminus.model.LoginRepository;
 import edu.sharif.snappfoodminus.model.Restaurant;
 import edu.sharif.snappfoodminus.model.RestaurantRepository;
+import edu.sharif.snappfoodminus.model.Review;
 
 public class RestaurantPageActivity extends AppCompatActivity {
 
@@ -119,6 +122,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
         TextView rateTextView = findViewById(R.id.rate);
         String rate = new RestaurantsController(this).getRestaurantRateText(restaurant.name);
         rateTextView.setText(rate);
+
+        TextView reviewsTextView = findViewById(R.id.watch_reviews_text_view);
+        reviewsTextView.setOnClickListener(v -> showReviewsDialog());
     }
 
     private void handleCategorySelection(int position) {
@@ -127,7 +133,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
         for (int i = 0; i < categoriesRecyclerView.getChildCount(); i++) {
             final CategoriesAdapter.ViewHolder holder = (CategoriesAdapter.ViewHolder)
                     categoriesRecyclerView.getChildViewHolder(categoriesRecyclerView.getChildAt(i));
-            TextView nameTextView = holder.itemView.findViewById(R.id.restaurant_text_view);
+            TextView nameTextView = holder.itemView.findViewById(R.id.customer_text_view);
             if (nameTextView.getText().toString().equals(currentCategory)) {
                 holder.itemView.setBackgroundResource(R.drawable.bg_colored_border);
                 nameTextView.setTextColor(ContextCompat.getColor(this, R.color.coloredBorder));
@@ -140,5 +146,20 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
     private String getShippingCostToView(int shippingCost) {
         return shippingCost == 0 ? "Free" : ("$" + shippingCost);
+    }
+
+    private void showReviewsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view = getLayoutInflater().inflate(R.layout.layout_review_page, null);
+        RecyclerView reviewsRecyclerView = view.findViewById(R.id.reviews_rv);
+        String restaurantName = RestaurantRepository.name;
+        ArrayList<Review> reviews = Review.getReviewsByRestaurant(this, restaurantName);
+        ReviewsAdapter reviewsAdapter = new ReviewsAdapter(reviews);
+        reviewsRecyclerView.setAdapter(reviewsAdapter);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        builder.setTitle("Reviews");
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

@@ -70,7 +70,7 @@ public class CustomerOrdersAdapter extends RecyclerView.Adapter<CustomerOrdersAd
 
         public ViewHolder(View itemView) {
             super(itemView);
-            restaurantTextView = itemView.findViewById(R.id.restaurant_text_view);
+            restaurantTextView = itemView.findViewById(R.id.customer_text_view);
             rateTextView = itemView.findViewById(R.id.rateTextView);
         }
     }
